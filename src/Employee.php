@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Src;
 
+use DateTimeImmutable;
+
 
 class Employee
 {
@@ -20,15 +22,23 @@ class Employee
      */
     private $gender;
     /**
-     * @var string
+     * @var DateTimeImmutable
      */
     private $hireDate;
 
-    public function __construct(string $firstName, string $lastName, string $gender, string $hireDate)
+    /** @throws InvalidHireDateException */
+    public function __construct(string $firstName, string $lastName, string $gender, DateTimeImmutable $hireDate)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->gender = $gender;
+
+        $now = new DateTimeImmutable();
+
+        if ($hireDate > $now) {
+            throw new InvalidHireDateException();
+        }
+
         $this->hireDate = $hireDate;
     }
 }

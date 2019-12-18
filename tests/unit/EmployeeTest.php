@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace UnitTests;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Src\Employee;
+use Src\InvalidHireDateException;
 
 class EmployeeTest extends TestCase
 {
@@ -14,21 +16,24 @@ class EmployeeTest extends TestCase
         $firstName = "FirstName";
         $lastName = "LastName";
         $gender = "M";
-        $hireDate="2019/03/01";
+        $hireDate=new DateTimeImmutable("2019-03-01");
 
         $employee = new Employee($firstName, $lastName, $gender, $hireDate);
 
         $this->assertInstanceOf(Employee::class, $employee);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @throws InvalidHireDateException
+     */
     public function itShouldThrowAnExceptionForIncorrectHireDate() {
         $firstName = "FirstName";
         $lastName = "LastName";
         $gender = "M";
-        $hireDate="2019/03/01";
+        $hireDate=new DateTimeImmutable("2020-03-01");
 
-        $this->expectException(InvalidHireDate::class);
+        $this->expectException(InvalidHireDateException::class);
         $employee = new Employee($firstName, $lastName, $gender, $hireDate);
     }
 
