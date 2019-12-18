@@ -6,6 +6,7 @@ namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Gender;
+use Src\Domain\InvalidGenderException;
 
 class GenderTest extends TestCase
 {
@@ -16,5 +17,15 @@ class GenderTest extends TestCase
         $firstName = new Gender($value);
 
         $this->assertInstanceOf(Gender::class, $firstName);
+    }
+
+    /**
+     * @test
+     * @throws InvalidGenderException
+     */
+    public function itShouldThrowAnExceptionForInvalidGender() {
+        $value = "invalid_gender";
+        $this->expectException(InvalidGenderException::class);
+        $gender = new Gender($value);
     }
 }
