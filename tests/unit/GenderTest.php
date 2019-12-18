@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
+use Src\Domain\Gender;
 
 class GenderTest extends TestCase
 {
