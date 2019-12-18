@@ -26,12 +26,15 @@ class Employee
      */
     private $hireDate;
 
-    /** @throws InvalidHireDateException */
+    /**
+     * @throws InvalidHireDateException
+     * @throws InvalidFirstNameException
+     */
     public function __construct(string $firstName, string $lastName, string $gender, DateTimeImmutable $hireDate)
     {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->gender = $gender;
+        if ($firstName === "") {
+            throw new InvalidFirstNameException();
+        }
 
         $now = new DateTimeImmutable();
 
@@ -39,6 +42,9 @@ class Employee
             throw new InvalidHireDateException();
         }
 
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->gender = $gender;
         $this->hireDate = $hireDate;
     }
 }

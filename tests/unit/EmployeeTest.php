@@ -7,6 +7,7 @@ namespace UnitTests;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Src\Employee;
+use Src\InvalidFirstNameException;
 use Src\InvalidHireDateException;
 
 class EmployeeTest extends TestCase
@@ -26,6 +27,7 @@ class EmployeeTest extends TestCase
     /**
      * @test
      * @throws InvalidHireDateException
+     * @throws InvalidFirstNameException
      */
     public function itShouldThrowAnExceptionForInvalidHireDate() {
         $firstName = "FirstName";
@@ -40,6 +42,7 @@ class EmployeeTest extends TestCase
     /**
      * @test
      * @throws InvalidFirstNameException
+     * @throws InvalidHireDateException
      */
     public function itShouldThrowAnExceptionForInvalidFirstName() {
         $firstName = "";
