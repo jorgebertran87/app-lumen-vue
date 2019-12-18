@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Src\Employee;
 use Src\InvalidFirstNameException;
 use Src\InvalidHireDateException;
+use Src\InvalidLastNameException;
 
 class EmployeeTest extends TestCase
 {
@@ -28,6 +29,7 @@ class EmployeeTest extends TestCase
      * @test
      * @throws InvalidHireDateException
      * @throws InvalidFirstNameException
+     * @throws InvalidLastNameException
      */
     public function itShouldThrowAnExceptionForInvalidHireDate() {
         $firstName = "FirstName";
@@ -43,6 +45,7 @@ class EmployeeTest extends TestCase
      * @test
      * @throws InvalidFirstNameException
      * @throws InvalidHireDateException
+     * @throws InvalidLastNameException
      */
     public function itShouldThrowAnExceptionForInvalidFirstName() {
         $firstName = "";
@@ -58,6 +61,7 @@ class EmployeeTest extends TestCase
      * @test
      * @throws InvalidFirstNameException
      * @throws InvalidHireDateException
+     * @throws InvalidLastNameException
      */
     public function itShouldThrowAnExceptionForInvalidLastName() {
         $firstName = "FirstName";
