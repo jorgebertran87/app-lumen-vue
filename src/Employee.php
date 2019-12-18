@@ -26,10 +26,13 @@ class Employee
      */
     private $hireDate;
 
+    const GENDER_TYPES = ["F", "M"];
+
     /**
      * @throws InvalidHireDateException
      * @throws InvalidFirstNameException
      * @throws InvalidLastNameException
+     * @throws InvalidGenderException
      */
     public function __construct(string $firstName, string $lastName, string $gender, DateTimeImmutable $hireDate)
     {
@@ -39,6 +42,10 @@ class Employee
 
         if ($lastName === "") {
             throw new InvalidLastNameException();
+        }
+
+        if (!in_array($gender, self::GENDER_TYPES)) {
+            throw new InvalidGenderException();
         }
 
         $now = new DateTimeImmutable();
