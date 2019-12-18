@@ -73,4 +73,20 @@ class EmployeeTest extends TestCase
         $employee = new Employee($firstName, $lastName, $gender, $hireDate);
     }
 
+    /**
+     * @test
+     * @throws InvalidFirstNameException
+     * @throws InvalidHireDateException
+     * @throws InvalidLastNameException
+     */
+    public function itShouldThrowAnExceptionForInvalidGender() {
+        $firstName = "FirstName";
+        $lastName = "LastName";
+        $gender = "invalid";
+        $hireDate=new DateTimeImmutable("2019-03-01");
+
+        $this->expectException(InvalidGenderException::class);
+        $employee = new Employee($firstName, $lastName, $gender, $hireDate);
+    }
+
 }
