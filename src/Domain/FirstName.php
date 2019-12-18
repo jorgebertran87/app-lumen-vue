@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Src\Domain;
 
-use DateTimeImmutable;
-
 
 class FirstName
 {
