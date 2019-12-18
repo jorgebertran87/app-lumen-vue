@@ -5,12 +5,12 @@ declare(strict_types = 1);
 namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
-use Src\Domain\BirthDate;
 use Src\Domain\Employee;
-use Src\Domain\FirstName;
-use Src\Domain\Gender;
-use Src\Domain\HireDate;
-use Src\Domain\LastName;
+use Src\Domain\Employee\BirthDate;
+use Src\Domain\Employee\FirstName;
+use Src\Domain\Employee\Gender;
+use Src\Domain\Employee\HireDate;
+use Src\Domain\Employee\LastName;
 
 class EmployeeTest extends TestCase
 {

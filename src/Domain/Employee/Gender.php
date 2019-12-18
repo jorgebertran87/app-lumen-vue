@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain;
+namespace Src\Domain\Employee;
 
 class Gender
 {

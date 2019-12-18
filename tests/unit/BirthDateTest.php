@@ -5,16 +5,15 @@ declare(strict_types = 1);
 namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
-use Src\Domain\BirthDate;
-use Src\Domain\FirstName;
-use Src\Domain\HireDate;
-use Src\Domain\InvalidBirthDateException;
-use Src\Domain\InvalidFirstNameException;
-use Src\Domain\InvalidHireDateException;
+use Src\Domain\Employee\BirthDate;
+use Src\Domain\Employee\InvalidBirthDateException;
 
 class BirthDateTest extends TestCase
 {
-    /** @test */
+    /** @
+     * test
+     * @throws InvalidBirthDateException
+     */
     public function itShouldCreateAValidHireDate() {
         $value = "2019-05-20";
 

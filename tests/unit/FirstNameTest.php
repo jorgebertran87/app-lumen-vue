@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
-use Src\Domain\FirstName;
-use Src\Domain\InvalidFirstNameException;
+use Src\Domain\Employee\FirstName;
+use Src\Domain\Employee\InvalidFirstNameException;
 
 class FirstNameTest extends TestCase
 {

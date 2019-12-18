@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain;
+namespace Src\Domain\Employee;
 
-class LastName
+class FirstName
 {
     /**
      * @var string
      */
     private $value;
 
-    /** @throws InvalidLastNameException */
+    /** @throws InvalidFirstNameException */
     public function __construct(string $value)
     {
         if ($value === "") {
-            throw new InvalidLastNameException();
+            throw new InvalidFirstNameException();
         }
 
         $this->value = $value;
