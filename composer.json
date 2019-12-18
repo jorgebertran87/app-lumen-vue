@@ -1,0 +1,14 @@
+{
+    "name": "jorgebertran87/docline-test",
+    "description": "Docline Test",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "authors": [
+        {
+            "name": "Jorge Bertrán",
+            "email": "jorgebertran87@gmail.com"
+        }
+    ]
+}
