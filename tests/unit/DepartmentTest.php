@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
+use Src\Domain\Department;
 
 class DepartmentTest extends TestCase
 {
@@ -12,7 +13,7 @@ class DepartmentTest extends TestCase
     public function itShouldCreateAValidDepartment() {
         $name = "name";
 
-        $employee = new Deparment($name);
+        $employee = new Department($name);
 
         $this->assertInstanceOf(Department::class, $employee);
     }
