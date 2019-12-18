@@ -29,11 +29,16 @@ class Employee
     /**
      * @throws InvalidHireDateException
      * @throws InvalidFirstNameException
+     * @throws InvalidLastNameException
      */
     public function __construct(string $firstName, string $lastName, string $gender, DateTimeImmutable $hireDate)
     {
         if ($firstName === "") {
             throw new InvalidFirstNameException();
+        }
+
+        if ($lastName === "") {
+            throw new InvalidLastNameException();
         }
 
         $now = new DateTimeImmutable();
