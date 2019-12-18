@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Src\Domain\BirthDate;
 use Src\Domain\FirstName;
 use Src\Domain\HireDate;
+use Src\Domain\InvalidBirthDateException;
 use Src\Domain\InvalidFirstNameException;
 use Src\Domain\InvalidHireDateException;
 
@@ -20,5 +21,15 @@ class BirthDateTest extends TestCase
         $birthDate = new BirthDate($value);
 
         $this->assertInstanceOf(BirthDate::class, $birthDate);
+    }
+
+    /**
+     * @test
+     * @throws InvalidBirthDateException
+     */
+    public function itShouldThrowAnExceptionForInvalidBirthDate() {
+        $value = "invalid_date";
+        $this->expectException(InvalidBirthDateException::class);
+        $hireDate = new BirthDate($value);
     }
 }
