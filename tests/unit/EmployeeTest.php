@@ -21,4 +21,15 @@ class EmployeeTest extends TestCase
         $this->assertInstanceOf(Employee::class, $employee);
     }
 
+    /** @test */
+    public function itShouldThrowAnExceptionForIncorrectHireDate() {
+        $firstName = "FirstName";
+        $lastName = "LastName";
+        $gender = "M";
+        $hireDate="2019/03/01";
+
+        $this->expectException(InvalidHireDate::class);
+        $employee = new Employee($firstName, $lastName, $gender, $hireDate);
+    }
+
 }
