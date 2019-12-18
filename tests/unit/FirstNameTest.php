@@ -7,6 +7,7 @@ namespace UnitTests;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Employee;
+use Src\Domain\FirstName;
 use Src\Domain\InvalidFirstNameException;
 use Src\Domain\InvalidGenderException;
 use Src\Domain\InvalidHireDateException;
