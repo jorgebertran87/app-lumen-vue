@@ -10,5 +10,11 @@
             "name": "Jorge Bertrán",
             "email": "jorgebertran87@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src",
+            "UnitTests\\": "tests/unit"
+        }
+    }
 }
