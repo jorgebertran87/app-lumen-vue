@@ -7,6 +7,10 @@ namespace Src\Domain;
 class Employee
 {
     /**
+     * @var BirthDate
+     */
+    private $birthDate;
+    /**
      * @var FirstName
      */
     private $firstName;
@@ -23,8 +27,14 @@ class Employee
      */
     private $hireDate;
 
-    public function __construct(FirstName $firstName, LastName $lastName, Gender $gender, HireDate $hireDate)
-    {
+    public function __construct(
+        BirthDate $birthDate,
+        FirstName $firstName,
+        LastName $lastName,
+        Gender $gender,
+        HireDate $hireDate
+    ) {
+        $this->birthDate = $birthDate;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->gender = $gender;
