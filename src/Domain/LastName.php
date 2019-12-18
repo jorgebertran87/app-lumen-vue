@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Src\Domain;
 
-class FirstName
+class LastName
 {
     /**
      * @var string
      */
     private $value;
 
-    /** @throws InvalidFirstNameException */
+    /** @throws InvalidLastNameException */
     public function __construct(string $value)
     {
         if ($value === "") {
-            throw new InvalidFirstNameException();
+            throw new InvalidLastNameException();
         }
 
         $this->value = $value;
