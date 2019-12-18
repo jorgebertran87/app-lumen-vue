@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Src;
 
 use Exception;
