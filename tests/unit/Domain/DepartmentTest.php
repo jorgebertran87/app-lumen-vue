@@ -6,15 +6,16 @@ namespace UnitTests\Domain;
 
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Department;
+use Src\Domain\Department\Name;
 
 class DepartmentTest extends TestCase
 {
     /** @test */
     public function itShouldCreateAValidDepartment() {
-        $name = "name";
+        $name = new Name("name");
 
-        $employee = new Department($name);
+        $department = new Department($name);
 
-        $this->assertInstanceOf(Department::class, $employee);
+        $this->assertInstanceOf(Department::class, $department);
     }
 }
