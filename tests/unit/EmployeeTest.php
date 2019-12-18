@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Src\Employee;
 use Src\InvalidFirstNameException;
+use Src\InvalidGenderException;
 use Src\InvalidHireDateException;
 use Src\InvalidLastNameException;
 
@@ -78,6 +79,7 @@ class EmployeeTest extends TestCase
      * @throws InvalidFirstNameException
      * @throws InvalidHireDateException
      * @throws InvalidLastNameException
+     * @throws InvalidGenderException
      */
     public function itShouldThrowAnExceptionForInvalidGender() {
         $firstName = "FirstName";
