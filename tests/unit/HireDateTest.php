@@ -5,7 +5,10 @@ declare(strict_types = 1);
 namespace UnitTests;
 
 use PHPUnit\Framework\TestCase;
+use Src\Domain\FirstName;
 use Src\Domain\HireDate;
+use Src\Domain\InvalidFirstNameException;
+use Src\Domain\InvalidHireDateException;
 
 class HireDateTest extends TestCase
 {
@@ -16,5 +19,15 @@ class HireDateTest extends TestCase
         $hireDate = new HireDate($value);
 
         $this->assertInstanceOf(HireDate::class, $hireDate);
+    }
+
+    /**
+     * @test
+     * @throws InvalidHireDateException
+     */
+    public function itShouldThrowAnExceptionForInvalidHireDate() {
+        $value = "invalid_date";
+        $this->expectException(InvalidHireDateException::class);
+        $hireDate = new HireDate($value);
     }
 }
