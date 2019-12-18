@@ -4,56 +4,27 @@ declare(strict_types=1);
 
 namespace Src\Domain;
 
-use DateTimeImmutable;
-
-
 class Employee
 {
     /**
-     * @var string
+     * @var FirstName
      */
     private $firstName;
     /**
-     * @var string
+     * @var LastName
      */
     private $lastName;
     /**
-     * @var string
+     * @var Gender
      */
     private $gender;
     /**
-     * @var DateTimeImmutable
+     * @var HireDate
      */
     private $hireDate;
 
-    const GENDER_TYPES = ["F", "M"];
-
-    /**
-     * @throws InvalidHireDateException
-     * @throws InvalidFirstNameException
-     * @throws InvalidLastNameException
-     * @throws InvalidGenderException
-     */
-    public function __construct(string $firstName, string $lastName, string $gender, DateTimeImmutable $hireDate)
+    public function __construct(FirstName $firstName, LastName $lastName, Gender $gender, HireDate $hireDate)
     {
-        if ($firstName === "") {
-            throw new InvalidFirstNameException();
-        }
-
-        if ($lastName === "") {
-            throw new InvalidLastNameException();
-        }
-
-        if (!in_array($gender, self::GENDER_TYPES)) {
-            throw new InvalidGenderException();
-        }
-
-        $now = new DateTimeImmutable();
-
-        if ($hireDate > $now) {
-            throw new InvalidHireDateException();
-        }
-
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->gender = $gender;
