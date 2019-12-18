@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace UnitTests;
+namespace UnitTests\Domain\Employee;
 
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Employee\FirstName;
