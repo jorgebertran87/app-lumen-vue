@@ -8,6 +8,9 @@ use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Employee;
 use Src\Domain\Employee\Title;
+use Src\Domain\Employee\Salary;
+use Src\Domain\Employee\InvalidTitleException;
+use Src\Domain\Employee\InvalidSalaryException;
 
 class EmployeeTest extends TestCase
 {
@@ -20,7 +23,7 @@ class EmployeeTest extends TestCase
 
     /**
      * @test
-     * @throws Employee\InvalidTitleException
+     * @throws InvalidTitleException
      */
     public function itShouldReturnATitle() {
         $employee = new FakeEmployee();
@@ -30,5 +33,19 @@ class EmployeeTest extends TestCase
         $titles = $employee->titles();
 
         $this->assertInstanceOf(Title::class, $titles[0]);
+    }
+
+    /**
+     * @test
+     * @throws InvalidSalaryException
+     */
+    public function itShouldReturnASalary() {
+        $employee = new FakeEmployee();
+        $salary = new Salary(1300.52, new DateTimeImmutable());
+
+        $employee->addSalary($salary);
+        $salaries = $employee->salaries();
+
+        $this->assertInstanceOf(Salary::class, $salaries[0]);
     }
 }
