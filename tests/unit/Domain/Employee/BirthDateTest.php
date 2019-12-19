@@ -10,8 +10,8 @@ use Src\Domain\Employee\InvalidBirthDateException;
 
 class BirthDateTest extends TestCase
 {
-    /** @
-     * test
+    /**
+     * @test
      * @throws InvalidBirthDateException
      */
     public function itShouldCreateAValidHireDate() {
