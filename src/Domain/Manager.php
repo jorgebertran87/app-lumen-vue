@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Src\Domain;
 
+use DateTimeImmutable;
+
 class Manager extends Employee
 {
+    /** @var array */
+    private $departmentsRanges;
+
     public function __construct(Employee $employee)
     {
         parent::__construct(
@@ -15,5 +20,22 @@ class Manager extends Employee
             $employee->gender(),
             $employee->hireDate()
         );
+    }
+
+    public function addDepartment(Department $department, DateTimeImmutable $from, DateTimeImmutable $to): void {
+        $this->departmentsRanges[] = [
+            "from" => $from,
+            "to" => $to,
+            "department" => $department
+        ];
+    }
+
+    public function departments(): array {
+        $departments = [];
+        foreach($this->departmentsRanges as $departmentsRange) {
+            $departments[] = $departmentsRange['department'];
+        }
+
+        return $departments;
     }
 }
