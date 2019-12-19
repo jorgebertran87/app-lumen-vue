@@ -22,7 +22,11 @@ class Manager extends Employee
         );
     }
 
+    /** @throws InvalidDepartmentRangeException */
     public function addDepartment(Department $department, DateTimeImmutable $from, DateTimeImmutable $to): void {
+        if ($from > $to) {
+            throw new InvalidDepartmentRangeException();
+        }
         $this->departmentsRanges[] = [
             "from" => $from,
             "to" => $to,
