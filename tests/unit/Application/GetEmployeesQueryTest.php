@@ -26,4 +26,14 @@ class GetEmployeesQueryTest extends TestCase
         $this->assertInstanceOf(Employee::class, $employees[0]);
     }
 
+    /** @test */
+    public function itShouldReturnEmptyArray() {
+        $bus = new QueryBusStub();
+
+        $getEmployeesQuery = new GetEmployeesQuery();
+        $employees = $bus->handle($getEmployeesQuery);
+
+        $this->assertCount(0, $employees);
+    }
+
 }

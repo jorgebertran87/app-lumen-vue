@@ -13,6 +13,11 @@ class EmployeeRepositoryStub implements EmployeeRepository
     /** @var array */
     private $employees;
 
+    public function __construct()
+    {
+        $this->employees = [];
+    }
+
     public function get(): array
     {
         return $this->employees;
