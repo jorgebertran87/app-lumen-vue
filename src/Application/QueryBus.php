@@ -22,7 +22,10 @@ class QueryBus
         $this->container = $builder->build();
     }
 
-    /** @return mixed */
+    /**
+     * @return mixed
+     * @throws QueryException
+     */
     public function handle($query)
     {
         $handlerClass = get_class($query).'Handler';
@@ -30,7 +33,7 @@ class QueryBus
             $handler = $this->container->get($handlerClass);
             return $handler->handle($query);
         } catch(Throwable $e) {
-            return null;
+            throw QueryException::fromQuery(get_class($query), $e);
         }
     }
 }
