@@ -6,6 +6,7 @@ namespace UnitTests\Domain\Employee;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
+use Src\Domain\Employee\Title;
 
 class TitleTest extends TestCase
 {
