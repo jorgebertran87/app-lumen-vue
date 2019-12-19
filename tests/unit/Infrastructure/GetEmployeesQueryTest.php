@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace UnitTests\Application;
+namespace UnitTests\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Employee;
+use Src\Infrastructure\GetEmployeesQuery;
 use UnitTests\Domain\FakeEmployee;
 
 class GetEmployeesQueryTest extends TestCase
 {
+    /** @test */
     public function itShouldReturnEmployees() {
         $bus = new QueryBusStub();
 

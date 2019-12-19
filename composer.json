@@ -3,7 +3,8 @@
     "description": "Docline Test",
     "type": "project",
     "require": {
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "php-di/php-di": "^6.0"
     },
     "authors": [
         {
