@@ -27,26 +27,38 @@ class EmployeeRepositoryStub implements EmployeeRepository
         $employees = [];
         /** @var FakeEmployee $employee */
         foreach($this->employees as $employee) {
+            $employeeDepartmentRangeFound = false;
             $employeeDepartmentsRanges = $employee->departmentsRanges();
-
-            /** @var DepartmentRange $departmentRange */
-            foreach($departmentsRanges as $departmentRange) {
-                /** @var DepartmentRange $employeeDepartmentRange */
-                foreach($employeeDepartmentsRanges as $employeeDepartmentRange) {
-                    if ($date < $employeeDepartmentRange->from()->value() || $date > $employeeDepartmentRange->to()->value()) {
-                        continue;
-                    }
-
-                    if ($date < $departmentRange->from()->value() || $date > $departmentRange->to()->value()) {
-                        continue;
-                    }
-
-                    if (!$employeeDepartmentRange->department()->name()->equals($departmentRange->department()->name())) {
-                        continue;
-                    }
-
-                    $employees[] = $employee;
+            /** @var DepartmentRange $employeeDepartmentRange */
+            foreach($employeeDepartmentsRanges as $employeeDepartmentRange) {
+                if (!is_null($date) && ($date < $employeeDepartmentRange->from()->value() || $date > $employeeDepartmentRange->to()->value())) {
+                    continue;
                 }
+
+                $departmentRangeFound = false;
+                if (! is_null($departmentsRanges)) {
+                    /** @var DepartmentRange $departmentRange */
+                    foreach($departmentsRanges as $departmentRange) {
+                        if ($date < $departmentRange->from()->value() || $date > $departmentRange->to()->value()) {
+                            continue;
+                        }
+
+                        if (!$employeeDepartmentRange->department()->name()->equals($departmentRange->department()->name())) {
+                            continue;
+                        }
+
+                        $departmentRangeFound = true;
+                        break;
+                    }
+                }
+
+                if ($departmentRangeFound) {
+                    $employeeDepartmentRangeFound = true;
+                }
+            }
+
+            if ($employeeDepartmentRangeFound) {
+                $employees[] = $employee;
             }
         }
 
