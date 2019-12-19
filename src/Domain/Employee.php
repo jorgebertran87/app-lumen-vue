@@ -8,6 +8,7 @@ use Src\Domain\Employee\BirthDate;
 use Src\Domain\Employee\FirstName;
 use Src\Domain\Employee\Gender;
 use Src\Domain\Employee\HireDate;
+use Src\Domain\Employee\Id;
 use Src\Domain\Employee\LastName;
 use Src\Domain\Employee\Salary;
 use Src\Domain\Employee\Title;
@@ -42,14 +43,20 @@ class Employee
      * @var array
      */
     private $salaries;
+    /**
+     * @var Id
+     */
+    private $id;
 
     public function __construct(
+        Id $id,
         BirthDate $birthDate,
         FirstName $firstName,
         LastName $lastName,
         Gender $gender,
         HireDate $hireDate
     ) {
+        $this->id = $id;
         $this->birthDate = $birthDate;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -63,6 +70,10 @@ class Employee
 
     public function addSalary(Salary $salary): void {
         $this->salaries[0] = $salary;
+    }
+
+    public function id(): Id {
+        return $this->id;
     }
 
     public function birthDate(): BirthDate {

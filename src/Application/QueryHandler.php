@@ -6,6 +6,9 @@ namespace Src\Application;
 
 interface QueryHandler
 {
-    /** @return mixed */
-    public function handle();
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function handle($query);
 }
