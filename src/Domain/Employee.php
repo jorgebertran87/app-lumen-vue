@@ -46,4 +46,24 @@ class Employee
         $this->gender = $gender;
         $this->hireDate = $hireDate;
     }
+
+    public function birthDate(): BirthDate {
+        return $this->birthDate;
+    }
+
+    public function firstName(): FirstName {
+        return $this->firstName;
+    }
+
+    public function lastName(): LastName {
+        return $this->lastName;
+    }
+
+    public function gender(): Gender {
+        return $this->gender;
+    }
+
+    public function hireDate(): HireDate {
+        return $this->hireDate;
+    }
 }
