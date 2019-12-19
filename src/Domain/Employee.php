@@ -9,6 +9,7 @@ use Src\Domain\Employee\FirstName;
 use Src\Domain\Employee\Gender;
 use Src\Domain\Employee\HireDate;
 use Src\Domain\Employee\LastName;
+use Src\Domain\Employee\Salary;
 use Src\Domain\Employee\Title;
 
 class Employee
@@ -37,6 +38,10 @@ class Employee
      * @var array
      */
     private $titles;
+    /**
+     * @var array
+     */
+    private $salaries;
 
     public function __construct(
         BirthDate $birthDate,
@@ -54,6 +59,10 @@ class Employee
 
     public function addTitle(Title $title): void {
         $this->titles[0] = $title;
+    }
+
+    public function addSalary(Salary $salary): void {
+        $this->salaries[0] = $salary;
     }
 
     public function birthDate(): BirthDate {
@@ -78,5 +87,9 @@ class Employee
 
     public function titles(): array {
         return $this->titles;
+    }
+
+    public function salaries(): array {
+        return $this->salaries;
     }
 }
