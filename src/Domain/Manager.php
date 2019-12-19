@@ -4,43 +4,30 @@ declare(strict_types=1);
 
 namespace Src\Domain;
 
-use DateTimeImmutable;
+use Src\Domain\Employee\BirthDate;
+use Src\Domain\Employee\FirstName;
+use Src\Domain\Employee\Gender;
+use Src\Domain\Employee\HireDate;
+use Src\Domain\Employee\Id;
+use Src\Domain\Employee\LastName;
 
 class Manager extends Employee
 {
-    /** @var array */
-    private $departmentsRanges;
-
-    public function __construct(Employee $employee)
-    {
+    public function __construct(
+        Id $id,
+        BirthDate $birthDate,
+        FirstName $firstName,
+        LastName $lastName,
+        Gender $gender,
+        HireDate $hireDate
+    ) {
         parent::__construct(
-            $employee->id(),
-            $employee->birthDate(),
-            $employee->firstName(),
-            $employee->lastName(),
-            $employee->gender(),
-            $employee->hireDate()
+            $id,
+            $birthDate,
+            $firstName,
+            $lastName,
+            $gender,
+            $hireDate
         );
-    }
-
-    /** @throws InvalidDepartmentRangeException */
-    public function addDepartment(Department $department, DateTimeImmutable $from, DateTimeImmutable $to): void {
-        if ($from > $to) {
-            throw new InvalidDepartmentRangeException();
-        }
-        $this->departmentsRanges[] = [
-            "from" => $from,
-            "to" => $to,
-            "department" => $department
-        ];
-    }
-
-    public function departments(): array {
-        $departments = [];
-        foreach($this->departmentsRanges as $departmentsRange) {
-            $departments[] = $departmentsRange['department'];
-        }
-
-        return $departments;
     }
 }

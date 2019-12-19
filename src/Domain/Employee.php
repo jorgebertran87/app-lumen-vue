@@ -48,6 +48,10 @@ class Employee
      */
     private $id;
 
+    /** @var array */
+    private $departmentsRanges;
+
+
     public function __construct(
         Id $id,
         BirthDate $birthDate,
@@ -62,6 +66,7 @@ class Employee
         $this->lastName = $lastName;
         $this->gender = $gender;
         $this->hireDate = $hireDate;
+        $this->departmentsRanges = [];
     }
 
     public function addTitle(Title $title): void {
@@ -70,6 +75,11 @@ class Employee
 
     public function addSalary(Salary $salary): void {
         $this->salaries[0] = $salary;
+    }
+
+    public function addDepartmentRange(DepartmentRange $departmentRange): void {
+
+        $this->departmentsRanges[] = $departmentRange;
     }
 
     public function id(): Id {
@@ -102,5 +112,9 @@ class Employee
 
     public function salaries(): array {
         return $this->salaries;
+    }
+
+    public function departmentsRanges(): array {
+        return $this->departmentsRanges;
     }
 }

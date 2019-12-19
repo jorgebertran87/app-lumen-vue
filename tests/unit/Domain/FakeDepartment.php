@@ -9,8 +9,8 @@ use Src\Domain\Department\Name;
 
 class FakeDepartment extends Department
 {
-    public function __construct() {
-        $name = new Name("name");
+    public function __construct(string $name) {
+        $name = new Name($name);
         parent::__construct($name);
     }
 }

@@ -4,10 +4,8 @@ declare(strict_types = 1);
 
 namespace UnitTests\Domain;
 
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use Src\Domain\Department;
-use Src\Domain\InvalidDepartmentRangeException;
+use Src\Domain\DepartmentRange;
 use Src\Domain\Manager;
 
 class ManagerTest extends TestCase
@@ -16,8 +14,7 @@ class ManagerTest extends TestCase
     private $manager;
 
     protected function setUp(): void {
-        $employee = new FakeEmployee();
-        $this->manager = new Manager($employee);
+        $this->manager = FakeManager::withFirstDepartmentRange();
     }
 
     /** @test */
@@ -26,24 +23,9 @@ class ManagerTest extends TestCase
     }
 
     /** @test */
-    public function itShouldReturnADepartment() {
-        $department = new FakeDepartment();
-        $from = new DateTimeImmutable();
-        $to = new DateTimeImmutable();
-        $this->manager->addDepartment($department, $from, $to);
+    public function itShouldReturnADepartmentRange() {
+        $departmentsRanges = $this->manager->departmentsRanges();
 
-        $departments = $this->manager->departments();
-
-        $this->assertInstanceOf(Department::class, $departments[0]);
-    }
-
-    /** @test */
-    public function itShouldThrowAnExceptionForInvalidRange() {
-        $department = new FakeDepartment();
-        $from = new DateTimeImmutable('2019-05-01');
-        $to = new DateTimeImmutable('2018-05-01');
-
-        $this->expectException(InvalidDepartmentRangeException::class);
-        $this->manager->addDepartment($department, $from, $to);
+        $this->assertInstanceOf(DepartmentRange::class, $departmentsRanges[0]);
     }
 }

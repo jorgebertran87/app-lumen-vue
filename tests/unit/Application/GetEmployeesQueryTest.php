@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace UnitTests\Application;
 
 use PHPUnit\Framework\TestCase;
+use Src\Domain\Department;
+use Src\Domain\DepartmentRange;
 use Src\Domain\Employee;
 use Src\Application\GetEmployeesQuery;
+use Src\Domain\Manager;
 use UnitTests\Domain\FakeEmployee;
+use UnitTests\Domain\FakeManager;
 
 class GetEmployeesQueryTest extends TestCase
 {
@@ -36,4 +40,103 @@ class GetEmployeesQueryTest extends TestCase
         $this->assertCount(0, $employees);
     }
 
+    /** @test */
+    public function itShouldReturnAnEmployeeFromSameDepartment() {
+        $bus = new QueryBusStub();
+
+        $employeeRepository = $bus->employeeRepository();
+        $employee = FakeEmployee::withFirstDepartmentRange();
+        $employeeRepository->add($employee);
+
+        $managerRepository = $bus->managerRepository();
+        $manager = FakeManager::withFirstDepartmentRange();
+        $managerRepository->add($manager);
+
+
+        $departmentsRanges = $manager->departmentsRanges();
+
+        /** @var DepartmentRange $departmentRange */
+        $departmentRange = $departmentsRanges[0];
+        $from = $departmentRange->from()->value()->format('Y-m-d');
+
+        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $employees = $bus->handle($getEmployeesQuery);
+
+        $this->assertInstanceOf(Employee::class, $employees[0]);
+    }
+
+    /** @test */
+    public function itShouldReturnAnEmptyArrayFromEmptyDepartment() {
+        $bus = new QueryBusStub();
+
+        $employeeRepository = $bus->employeeRepository();
+        $employee = new FakeEmployee();
+        $employeeRepository->add($employee);
+
+        $managerRepository = $bus->managerRepository();
+        $manager = FakeManager::withFirstDepartmentRange();
+        $managerRepository->add($manager);
+
+
+        $departmentsRanges = $manager->departmentsRanges();
+
+        /** @var DepartmentRange $departmentRange */
+        $departmentRange = $departmentsRanges[0];
+        $from = $departmentRange->from()->value()->format('Y-m-d');
+
+        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $employees = $bus->handle($getEmployeesQuery);
+
+        $this->assertCount(0, $employees);
+    }
+
+    /** @test */
+    public function itShouldReturnAnEmptyArrayFromDifferentDepartmentRange() {
+        $bus = new QueryBusStub();
+
+        $employeeRepository = $bus->employeeRepository();
+        $employee = FakeEmployee::withFirstDepartmentRange();
+        $employeeRepository->add($employee);
+
+        $managerRepository = $bus->managerRepository();
+        $manager = FakeManager::withSecondDepartmentRange();
+        $managerRepository->add($manager);
+
+
+        $departmentsRanges = $manager->departmentsRanges();
+
+        /** @var DepartmentRange $departmentRange */
+        $departmentRange = $departmentsRanges[0];
+        $from = $departmentRange->from()->value()->format('Y-m-d');
+
+        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $employees = $bus->handle($getEmployeesQuery);
+
+        $this->assertCount(0, $employees);
+    }
+
+    /** @test */
+    public function itShouldReturnAnEmptyArrayFromDifferentDepartmentName() {
+        $bus = new QueryBusStub();
+
+        $employeeRepository = $bus->employeeRepository();
+        $employee = FakeEmployee::withFirstDepartmentRange();
+        $employeeRepository->add($employee);
+
+        $managerRepository = $bus->managerRepository();
+        $manager = FakeManager::withFirstDepartmentRange('different_name');
+        $managerRepository->add($manager);
+
+
+        $departmentsRanges = $manager->departmentsRanges();
+
+        /** @var DepartmentRange $departmentRange */
+        $departmentRange = $departmentsRanges[0];
+        $from = $departmentRange->from()->value()->format('Y-m-d');
+
+        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $employees = $bus->handle($getEmployeesQuery);
+
+        $this->assertCount(0, $employees);
+    }
 }

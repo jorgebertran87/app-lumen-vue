@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace UnitTests\Application;
 
 use Src\Application\EmployeeRepository;
+use Src\Domain\DepartmentRange;
 use Src\Domain\Employee;
 use Src\Domain\Employee\Id;
 use Src\Domain\Manager;
 use DateTimeImmutable;
+use UnitTests\Domain\FakeEmployee;
 
 class EmployeeRepositoryStub implements EmployeeRepository
 {
@@ -20,9 +22,35 @@ class EmployeeRepositoryStub implements EmployeeRepository
         $this->employees = [];
     }
 
-    public function get(?Manager $manager, ?DateTimeImmutable $date): array
+    public function get(?array $departmentsRanges, ?DateTimeImmutable $date): array
     {
-        return $this->employees;
+        $employees = [];
+        /** @var FakeEmployee $employee */
+        foreach($this->employees as $employee) {
+            $employeeDepartmentsRanges = $employee->departmentsRanges();
+
+            /** @var DepartmentRange $departmentRange */
+            foreach($departmentsRanges as $departmentRange) {
+                /** @var DepartmentRange $employeeDepartmentRange */
+                foreach($employeeDepartmentsRanges as $employeeDepartmentRange) {
+                    if ($date < $employeeDepartmentRange->from()->value() || $date > $employeeDepartmentRange->to()->value()) {
+                        continue;
+                    }
+
+                    if ($date < $departmentRange->from()->value() || $date > $departmentRange->to()->value()) {
+                        continue;
+                    }
+
+                    if (!$employeeDepartmentRange->department()->name()->equals($departmentRange->department()->name())) {
+                        continue;
+                    }
+
+                    $employees[] = $employee;
+                }
+            }
+        }
+
+        return $employees;
     }
 
     public function find(Id $id): ?Employee
