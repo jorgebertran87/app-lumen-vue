@@ -7,6 +7,8 @@ namespace UnitTests\Application;
 use Src\Application\EmployeeRepository;
 use Src\Domain\Employee;
 use Src\Domain\Employee\Id;
+use Src\Domain\Manager;
+use DateTimeImmutable;
 
 class EmployeeRepositoryStub implements EmployeeRepository
 {
@@ -18,14 +20,9 @@ class EmployeeRepositoryStub implements EmployeeRepository
         $this->employees = [];
     }
 
-    public function get(): array
+    public function get(?Manager $manager, ?DateTimeImmutable $date): array
     {
         return $this->employees;
-    }
-
-    public function add(Employee $employee): void
-    {
-        $this->employees[] = $employee;
     }
 
     public function find(Id $id): ?Employee
@@ -38,5 +35,10 @@ class EmployeeRepositoryStub implements EmployeeRepository
         }
 
         return null;
+    }
+
+    public function add(Employee $employee): void
+    {
+        $this->employees[] = $employee;
     }
 }

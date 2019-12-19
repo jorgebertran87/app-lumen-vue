@@ -6,12 +6,12 @@ namespace Src\Application;
 
 use Src\Domain\Employee;
 use Src\Domain\Employee\Id;
+use Src\Domain\Manager;
+use DateTimeImmutable;
 
 interface EmployeeRepository
 {
-    public function get(): array;
-
-    public function add(Employee $employee): void;
+    public function get(?Manager $manager, ?DateTimeImmutable $date): array;
 
     public function find(Id $id): ?Employee;
 }

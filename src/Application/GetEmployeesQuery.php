@@ -6,5 +6,26 @@ namespace Src\Application;
 
 class GetEmployeesQuery
 {
+    /**
+     * @var string
+     */
+    private $managerId;
+    /**
+     * @var string
+     */
+    private $date;
 
+    public function __construct(string $managerId=null, string $date=null)
+    {
+        $this->managerId = $managerId;
+        $this->date = $date;
+    }
+
+    public function managerId(): ?string {
+        return $this->managerId;
+    }
+
+    public function date(): ?string {
+        return $this->date;
+    }
 }
