@@ -6,6 +6,7 @@ namespace Src\Application;
 
 use DateTimeImmutable;
 use Src\Domain\Employee\Id;
+use Exception;
 
 class GetEmployeesQueryHandler implements QueryHandler
 {
@@ -23,23 +24,24 @@ class GetEmployeesQueryHandler implements QueryHandler
 
     /**
      * @param GetEmployeesQuery $query
+     * @throws Exception
      * @return mixed
      */
     public function handle($query)
     {
-        $manager = null;
+        $departmentsRanges = null;
         $date = null;
 
         if ($query->managerId()) {
             $id = new Id($query->managerId());
             $manager = $this->managerRepository->find($id);
+            $departmentsRanges = $manager->departmentsRanges();
         }
 
         if ($query->date()) {
             $date = new DateTimeImmutable($query->date());
         }
 
-
-        return $this->employeeRepository->get($manager, $date);
+        return $this->employeeRepository->get($departmentsRanges, $date);
     }
 }

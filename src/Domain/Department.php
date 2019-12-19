@@ -17,4 +17,8 @@ class Department
     {
         $this->name = $name;
     }
+
+    public function name(): Name {
+        return $this->name;
+    }
 }

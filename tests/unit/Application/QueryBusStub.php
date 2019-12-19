@@ -25,11 +25,11 @@ class QueryBusStub extends QueryBus
         );
     }
 
-    /**
-     * @throws \DI\DependencyException
-     * @throws \DI\NotFoundException
-     */
-    public function employeeRepository(): EmployeeRepository {
+    public function employeeRepository(): EmployeeRepositoryStub {
         return $this->container->get(EmployeeRepository::class);
+    }
+
+    public function managerRepository(): ManagerRepositoryStub {
+        return $this->container->get(ManagerRepository::class);
     }
 }

@@ -11,7 +11,7 @@ class DepartmentTest extends TestCase
 {
     /** @test */
     public function itShouldCreateAValidDepartment() {
-        $department = new FakeDepartment();
+        $department = new FakeDepartment('name');
 
         $this->assertInstanceOf(Department::class, $department);
     }
