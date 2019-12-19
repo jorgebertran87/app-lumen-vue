@@ -14,6 +14,7 @@ class Manager extends Employee
     public function __construct(Employee $employee)
     {
         parent::__construct(
+            $employee->id(),
             $employee->birthDate(),
             $employee->firstName(),
             $employee->lastName(),

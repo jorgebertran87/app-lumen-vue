@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace UnitTests\Application;
+
+use PHPUnit\Framework\TestCase;
+use Src\Application\GetEmployeeQuery;
+use Src\Domain\Employee;
+use UnitTests\Domain\FakeEmployee;
+
+class GetEmployeeQueryTest extends TestCase
+{
+    /** @test */
+    public function itShouldReturnAnEmployee() {
+        $bus = new QueryBusStub();
+
+        $employeeRepository = $bus->employeeRepository();
+        $employee = new FakeEmployee();
+        $employeeRepository->add($employee);
+
+        $getEmployeeQuery = new GetEmployeeQuery($employee->id()->value());
+        $employee = $bus->handle($getEmployeeQuery);
+
+        $this->assertInstanceOf(Employee::class, $employee);
+    }
+
+    /** @test */
+    public function itShouldReturnNull() {
+        $bus = new QueryBusStub();
+
+        $employeeRepository = $bus->employeeRepository();
+        $employee = new FakeEmployee();
+        $employeeRepository->add($employee);
+
+        $getEmployeeQuery = new GetEmployeeQuery($employee->id()->value() . 'aaa');
+        $employee = $bus->handle($getEmployeeQuery);
+
+        $this->assertNull($employee);
+    }
+
+}

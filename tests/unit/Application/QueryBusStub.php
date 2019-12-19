@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UnitTests\Infrastructure;
+namespace UnitTests\Application;
 
 use Src\Application\EmployeeRepository;
-use Src\Infrastructure\QueryBus;
+use Src\Application\QueryBus;
 
 class QueryBusStub extends QueryBus
 {

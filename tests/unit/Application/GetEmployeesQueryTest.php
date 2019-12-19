@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace UnitTests\Infrastructure;
+namespace UnitTests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Src\Domain\Employee;
-use Src\Infrastructure\GetEmployeesQuery;
+use Src\Application\GetEmployeesQuery;
 use UnitTests\Domain\FakeEmployee;
 
-class GetEmployeeQueryTest extends TestCase
+class GetEmployeesQueryTest extends TestCase
 {
     /** @test */
     public function itShouldReturnEmployees() {
@@ -20,10 +20,10 @@ class GetEmployeeQueryTest extends TestCase
         $employeeRepository->add($employee);
 
 
-        $getEmployeeQuery = new GetEmployeeQuery(1);
-        $employee = $bus->handle($getEmployeeQuery);
+        $getEmployeesQuery = new GetEmployeesQuery();
+        $employees = $bus->handle($getEmployeesQuery);
 
-        $this->assertInstanceOf(Employee::class, $employee);
+        $this->assertInstanceOf(Employee::class, $employees[0]);
     }
 
 }

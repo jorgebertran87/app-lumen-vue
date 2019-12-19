@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Infrastructure;
+namespace Src\Application;
 
 class GetEmployeesQuery
 {

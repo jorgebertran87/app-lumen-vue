@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Infrastructure;
+namespace Src\Application;
 
 use Src\Application\EmployeeRepository;
 use Src\Application\QueryHandler;
@@ -16,8 +16,11 @@ class GetEmployeesQueryHandler implements QueryHandler
         $this->repository = $repository;
     }
 
-    /** @return mixed */
-    public function handle()
+    /**
+     * @param GetEmployeesQuery $query
+     * @return mixed
+     */
+    public function handle($query)
     {
         return $this->repository->get();
     }
