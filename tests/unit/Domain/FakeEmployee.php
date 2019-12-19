@@ -34,4 +34,12 @@ class FakeEmployee extends Employee
 
         return $employee;
     }
+
+    public static function withSecondDepartmentRange(): self {
+        $departmentRange = FakeDepartmentRange::withSecondRange();
+        $employee = new self();
+        $employee->addDepartmentRange($departmentRange);
+
+        return $employee;
+    }
 }

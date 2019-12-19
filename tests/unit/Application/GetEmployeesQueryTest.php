@@ -41,12 +41,14 @@ class GetEmployeesQueryTest extends TestCase
     }
 
     /** @test */
-    public function itShouldReturnAnEmployeeFromSameDepartment() {
+    public function itShouldReturnOneEmployeeFromSameDepartment() {
         $bus = new QueryBusStub();
 
         $employeeRepository = $bus->employeeRepository();
         $employee = FakeEmployee::withFirstDepartmentRange();
+        $employee2 = FakeEmployee::withSecondDepartmentRange();
         $employeeRepository->add($employee);
+        $employeeRepository->add($employee2);
 
         $managerRepository = $bus->managerRepository();
         $manager = FakeManager::withFirstDepartmentRange();
@@ -62,7 +64,7 @@ class GetEmployeesQueryTest extends TestCase
         $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
-        $this->assertInstanceOf(Employee::class, $employees[0]);
+        $this->assertCount(1, $employees);
     }
 
     /** @test */
