@@ -1,2 +1,4 @@
-/vendor/
+/db_password.txt
+/db_root_password.txt
+/src/
 /.idea/
