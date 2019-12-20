@@ -14,11 +14,11 @@ class Id
         $this->value = $value;
     }
 
-    public function value(): string {
-        return $this->value;
+    public function equals(Id $id): bool {
+        return (string)$this === (string)$id;
     }
 
-    public function equals(Id $id): bool {
-        return $this->value() === $id->value();
+    public function __toString(): string {
+        return $this->value;
     }
 }

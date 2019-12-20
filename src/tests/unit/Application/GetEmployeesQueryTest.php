@@ -61,7 +61,7 @@ class GetEmployeesQueryTest extends TestCase
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
 
-        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(1, $employees);
@@ -86,7 +86,7 @@ class GetEmployeesQueryTest extends TestCase
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
 
-        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(0, $employees);
@@ -111,7 +111,7 @@ class GetEmployeesQueryTest extends TestCase
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
 
-        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(0, $employees);
@@ -136,7 +136,7 @@ class GetEmployeesQueryTest extends TestCase
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
 
-        $getEmployeesQuery = new GetEmployeesQuery($manager->id()->value(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(0, $employees);

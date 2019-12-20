@@ -19,7 +19,7 @@ class GetEmployeeQueryTest extends TestCase
         $employee = new FakeEmployee();
         $employeeRepository->add($employee);
 
-        $getEmployeeQuery = new GetEmployeeQuery($employee->id()->value());
+        $getEmployeeQuery = new GetEmployeeQuery((string)$employee->id());
         $employee = $bus->handle($getEmployeeQuery);
 
         $this->assertInstanceOf(Employee::class, $employee);
@@ -33,7 +33,7 @@ class GetEmployeeQueryTest extends TestCase
         $employee = new FakeEmployee();
         $employeeRepository->add($employee);
 
-        $getEmployeeQuery = new GetEmployeeQuery($employee->id()->value() . 'aaa');
+        $getEmployeeQuery = new GetEmployeeQuery((string)$employee->id() . 'aaa');
         $employee = $bus->handle($getEmployeeQuery);
 
         $this->assertNull($employee);
