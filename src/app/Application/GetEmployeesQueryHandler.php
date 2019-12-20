@@ -35,7 +35,9 @@ class GetEmployeesQueryHandler implements QueryHandler
         if ($query->managerId()) {
             $id = new Id($query->managerId());
             $manager = $this->managerRepository->find($id);
-            $departmentsRanges = $manager->departmentsRanges();
+            if ($manager) {
+                $departmentsRanges = $manager->departmentsRanges();
+            }
         }
 
         if ($query->date()) {
