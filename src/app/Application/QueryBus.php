@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Application;
+namespace App\Application;
 
 use DI\ContainerBuilder;
 use Exception;

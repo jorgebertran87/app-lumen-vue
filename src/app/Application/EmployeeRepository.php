@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Src\Application;
+namespace App\Application;
 
-use Src\Domain\Employee;
-use Src\Domain\Employee\Id;
-use Src\Domain\Manager;
+use App\Domain\Employee;
+use App\Domain\Employee\Id;
+use App\Domain\Manager;
 use DateTimeImmutable;
 
 interface EmployeeRepository

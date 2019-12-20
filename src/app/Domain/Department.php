@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain;
+namespace App\Domain;
 
-use Src\Domain\Department\Name;
+use App\Domain\Department\Name;
 
 class Department
 {

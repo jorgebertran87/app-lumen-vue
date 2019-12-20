@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use Src\Application\ManagerRepository;
-use Src\Domain\Employee\Id;
-use Src\Domain\Manager;
+use App\Application\ManagerRepository;
+use App\Domain\Employee\Id;
+use App\Domain\Manager;
 
 class ManagerRepositoryStub implements ManagerRepository
 {

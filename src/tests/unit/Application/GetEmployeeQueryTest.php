@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace UnitTests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Src\Application\GetEmployeeQuery;
-use Src\Domain\Employee;
+use App\Application\GetEmployeeQuery;
+use App\Domain\Employee;
 use UnitTests\Domain\FakeEmployee;
 
 class GetEmployeeQueryTest extends TestCase

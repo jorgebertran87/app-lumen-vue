@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace UnitTests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Src\Domain\Department;
-use Src\Domain\DepartmentRange;
-use Src\Domain\Employee;
-use Src\Application\GetEmployeesQuery;
-use Src\Domain\Manager;
+use App\Domain\Department;
+use App\Domain\DepartmentRange;
+use App\Domain\Employee;
+use App\Application\GetEmployeesQuery;
+use App\Domain\Manager;
 use UnitTests\Domain\FakeEmployee;
 use UnitTests\Domain\FakeManager;
 

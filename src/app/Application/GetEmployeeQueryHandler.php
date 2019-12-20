@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Src\Application;
+namespace App\Application;
 
-use Src\Application\EmployeeRepository;
-use Src\Application\QueryHandler;
-use Src\Domain\Employee\Id;
+use App\Application\EmployeeRepository;
+use App\Application\QueryHandler;
+use App\Domain\Employee\Id;
 
 class GetEmployeeQueryHandler implements QueryHandler
 {

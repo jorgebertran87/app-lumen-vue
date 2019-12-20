@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Src\Application;
+namespace App\Application;
 
 use DateTimeImmutable;
-use Src\Domain\Employee\Id;
+use App\Domain\Employee\Id;
 use Exception;
 
 class GetEmployeesQueryHandler implements QueryHandler

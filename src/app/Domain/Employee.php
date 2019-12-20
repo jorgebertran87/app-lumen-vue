@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain;
+namespace App\Domain;
 
-use Src\Domain\Employee\BirthDate;
-use Src\Domain\Employee\FirstName;
-use Src\Domain\Employee\Gender;
-use Src\Domain\Employee\HireDate;
-use Src\Domain\Employee\Id;
-use Src\Domain\Employee\LastName;
-use Src\Domain\Employee\Salary;
-use Src\Domain\Employee\Title;
+use App\Domain\Employee\BirthDate;
+use App\Domain\Employee\FirstName;
+use App\Domain\Employee\Gender;
+use App\Domain\Employee\HireDate;
+use App\Domain\Employee\Id;
+use App\Domain\Employee\LastName;
+use App\Domain\Employee\Salary;
+use App\Domain\Employee\Title;
 
 class Employee
 {

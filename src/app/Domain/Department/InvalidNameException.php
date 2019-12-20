@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Domain\Department;
+namespace App\Domain\Department;
 
 use Exception;
 

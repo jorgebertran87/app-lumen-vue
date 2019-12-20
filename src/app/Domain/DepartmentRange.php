@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain;
+namespace App\Domain;
 
 use DateTimeImmutable;
-use Src\Domain\DepartmentRange\Date;
+use App\Domain\DepartmentRange\Date;
 
 class DepartmentRange
 {

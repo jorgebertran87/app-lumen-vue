@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use Src\Application\EmployeeRepository;
-use Src\Domain\DepartmentRange;
-use Src\Domain\Employee;
-use Src\Domain\Employee\Id;
-use Src\Domain\Manager;
+use App\Application\EmployeeRepository;
+use App\Domain\DepartmentRange;
+use App\Domain\Employee;
+use App\Domain\Employee\Id;
+use App\Domain\Manager;
 use DateTimeImmutable;
 use UnitTests\Domain\FakeEmployee;
 

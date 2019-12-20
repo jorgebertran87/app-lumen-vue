@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Src\Application;
+namespace App\Application;
 
-use Src\Domain\Employee\Id;
-use Src\Domain\Manager;
+use App\Domain\Employee\Id;
+use App\Domain\Manager;
 
 interface ManagerRepository
 {

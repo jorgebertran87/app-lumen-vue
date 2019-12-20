@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UnitTests\Domain\Employee;
 
 use PHPUnit\Framework\TestCase;
-use Src\Domain\Employee\HireDate;
-use Src\Domain\Employee\InvalidHireDateException;
+use App\Domain\Employee\HireDate;
+use App\Domain\Employee\InvalidHireDateException;
 
 class HireDateTest extends TestCase
 {

@@ -6,11 +6,11 @@ namespace UnitTests\Domain;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use Src\Domain\Employee;
-use Src\Domain\Employee\Title;
-use Src\Domain\Employee\Salary;
-use Src\Domain\Employee\InvalidTitleException;
-use Src\Domain\Employee\InvalidSalaryException;
+use App\Domain\Employee;
+use App\Domain\Employee\Title;
+use App\Domain\Employee\Salary;
+use App\Domain\Employee\InvalidTitleException;
+use App\Domain\Employee\InvalidSalaryException;
 
 class EmployeeTest extends TestCase
 {

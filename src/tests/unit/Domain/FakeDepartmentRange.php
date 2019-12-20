@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace UnitTests\Domain;
 
 use DateTimeImmutable;
-use Src\Domain\DepartmentRange;
-use Src\Domain\DepartmentRange\Date;
+use App\Domain\DepartmentRange;
+use App\Domain\DepartmentRange\Date;
 
 class FakeDepartmentRange extends DepartmentRange
 {

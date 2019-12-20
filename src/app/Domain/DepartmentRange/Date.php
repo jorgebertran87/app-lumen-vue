@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain\DepartmentRange;
+namespace App\Domain\DepartmentRange;
 
 use DateTimeImmutable;
 

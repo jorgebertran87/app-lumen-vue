@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Domain\Department;
+namespace App\Domain\Department;
 
 class Name
 {
