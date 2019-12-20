@@ -18,6 +18,7 @@ class QueryBus
         $builder = new ContainerBuilder();
         $builder->useAutowiring(true);
         $builder->useAnnotations(false);
+        $builder->addDefinitions('../di.php');
 
         $this->container = $builder->build();
     }

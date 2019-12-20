@@ -11,7 +11,7 @@ use DateTimeImmutable;
 
 interface EmployeeRepository
 {
-    public function get(?array $deoartmentsRanges, ?DateTimeImmutable $date): array;
+    public function get(?array $departmentsRanges, ?DateTimeImmutable $date): array;
 
     public function find(Id $id): ?Employee;
 }
