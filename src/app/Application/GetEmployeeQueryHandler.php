@@ -20,10 +20,16 @@ class GetEmployeeQueryHandler implements QueryHandler
     /**
      * @param GetEmployeeQuery $query
      * @return mixed
+     * @throws EmployeeNotFoundException
      */
     public function handle($query)
     {
         $id = new Id($query->id());
-        return $this->repository->find($id);
+        $employee = $this->repository->find($id);
+
+        if (is_null($employee)) {
+            throw new EmployeeNotFoundException();
+        }
+        return $employee ? $employee->serialize() : null;
     }
 }
