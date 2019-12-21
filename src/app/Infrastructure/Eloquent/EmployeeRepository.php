@@ -4,6 +4,7 @@ namespace App\Infrastructure\Eloquent;
 
 
 use App\Application\EmployeeRepository as EmployeeRepositoryInterface;
+use App\Application\PaginationFilters;
 use App\Domain\Department;
 use App\Domain\DepartmentRange;
 use App\Domain\Employee;
@@ -47,9 +48,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         return count($departmentsRanges) === 0;
     }
 
-    public function get(): array
+    public function get(PaginationFilters $filters): array
     {
-        $rows = DtoEmployee::take(50)->get();
+        $numRowsToSkip = ($filters->numPage()-1)*$filters->numRows();
+        $rows = DtoEmployee::skip($numRowsToSkip)->take($filters->numRows())->get();
 
         return $this->convertToEmployees($rows);
     }
@@ -104,5 +106,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         }
 
         return $employee;
+    }
+
+    public function getCount(): int
+    {
+        return DtoEmployee::count();
     }
 }

@@ -91,6 +91,10 @@ $app->singleton(
 |
 */
 
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class
+]);
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
