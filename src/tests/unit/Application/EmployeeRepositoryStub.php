@@ -22,7 +22,29 @@ class EmployeeRepositoryStub implements EmployeeRepository
         $this->employees = [];
     }
 
-    public function get(?array $departmentsRanges, ?DateTimeImmutable $date): array
+    public function get(): array
+    {
+        return $this->employees;
+    }
+
+    public function find(Id $id): ?Employee
+    {
+        /** @var Employee $employee */
+        foreach($this->employees as $employee) {
+            if ($employee->id()->equals($id)) {
+                return $employee;
+            }
+        }
+
+        return null;
+    }
+
+    public function add(Employee $employee): void
+    {
+        $this->employees[] = $employee;
+    }
+
+    public function getFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): array
     {
         $employees = [];
         /** @var FakeEmployee $employee */
@@ -31,14 +53,14 @@ class EmployeeRepositoryStub implements EmployeeRepository
             $employeeDepartmentsRanges = $employee->departmentsRanges();
             /** @var DepartmentRange $employeeDepartmentRange */
             foreach($employeeDepartmentsRanges as $employeeDepartmentRange) {
-                if (!is_null($date) && ($date < $employeeDepartmentRange->from()->value() || $date > $employeeDepartmentRange->to()->value())) {
+                if ($date < $employeeDepartmentRange->from()->value() || $date > $employeeDepartmentRange->to()->value()) {
                     continue;
                 }
 
                 $departmentRangeFound = false;
-                if (! is_null($departmentsRanges)) {
+                if (! is_null($managerDepartmentsRanges)) {
                     /** @var DepartmentRange $departmentRange */
-                    foreach($departmentsRanges as $departmentRange) {
+                    foreach($managerDepartmentsRanges as $departmentRange) {
                         if ($date < $departmentRange->from()->value() || $date > $departmentRange->to()->value()) {
                             continue;
                         }
@@ -63,22 +85,5 @@ class EmployeeRepositoryStub implements EmployeeRepository
         }
 
         return $employees;
-    }
-
-    public function find(Id $id): ?Employee
-    {
-        /** @var Employee $employee */
-        foreach($this->employees as $employee) {
-            if ($employee->id()->equals($id)) {
-                return $employee;
-            }
-        }
-
-        return null;
-    }
-
-    public function add(Employee $employee): void
-    {
-        $this->employees[] = $employee;
     }
 }
