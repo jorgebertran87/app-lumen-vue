@@ -31,6 +31,19 @@ services:
     depends_on:
       - mysql
 
+  client:
+    build: './client'
+    container_name: client
+    hostname: client
+    restart: unless-stopped
+    volumes:
+      - ./client/app:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
+
+
 secrets:
   db_root_password:
     file: db_root_password.txt
