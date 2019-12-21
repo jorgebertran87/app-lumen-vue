@@ -32,18 +32,17 @@ class GetEmployeesQueryHandler implements QueryHandler
         $departmentsRanges = null;
         $date = null;
 
-        if ($query->managerId()) {
+        if ($query->date() && $query->managerId()) {
+            $date = new DateTimeImmutable($query->date());
             $id = new Id($query->managerId());
-            $manager = $this->managerRepository->find($id);
+            $manager = $this->managerRepository->findByIdAndDate($id, $date);
             if ($manager) {
                 $departmentsRanges = $manager->departmentsRanges();
             }
+
+            return $this->employeeRepository->getFromManagerDepartmentsRangesAndDate($departmentsRanges, $date);
         }
 
-        if ($query->date()) {
-            $date = new DateTimeImmutable($query->date());
-        }
-
-        return $this->employeeRepository->get($departmentsRanges, $date);
+        return $this->employeeRepository->get();
     }
 }
