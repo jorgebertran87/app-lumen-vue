@@ -43,6 +43,8 @@ class GetEmployeesQueryHandler implements QueryHandler
             return $this->employeeRepository->getFromManagerDepartmentsRangesAndDate($departmentsRanges, $date);
         }
 
-        return $this->employeeRepository->get();
+        $paginationFilters = new PaginationFilters($query->page(), $query->rows());
+
+        return $this->employeeRepository->get($paginationFilters);
     }
 }

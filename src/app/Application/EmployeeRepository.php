@@ -11,9 +11,11 @@ use DateTimeImmutable;
 
 interface EmployeeRepository
 {
-    public function get(): array;
+    public function get(PaginationFilters $filters): array;
 
     public function getFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): array;
 
     public function find(Id $id): ?Employee;
+
+    public function getCount(): int;
 }
