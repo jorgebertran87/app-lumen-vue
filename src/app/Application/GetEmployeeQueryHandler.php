@@ -30,6 +30,6 @@ class GetEmployeeQueryHandler implements QueryHandler
         if (is_null($employee)) {
             throw new EmployeeNotFoundException();
         }
-        return $employee ? $employee->serialize() : null;
+        return $employee;
     }
 }

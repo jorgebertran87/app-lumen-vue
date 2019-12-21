@@ -10,6 +10,8 @@ use DateTimeImmutable;
 
 interface ManagerRepository
 {
+    public function get(): array;
+
     public function find(Id $id): ?Manager;
 
     public function findByIdAndDate(Id $id, ?DateTimeImmutable $date): ?Manager;

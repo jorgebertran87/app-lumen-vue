@@ -13,6 +13,7 @@ use App\Domain\Employee\LastName;
 use App\Domain\Employee\Gender;
 use App\Domain\Employee\HireDate;
 use DateTimeImmutable;
+use Illuminate\Database\Eloquent\Collection;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -36,9 +37,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                     }
                 });
             });
-        })->take(20)->get()->toArray();
+        })->take(20)->get();
 
-        return $this->serialize($rows);
+        return $this->convertToEmployees($rows);
     }
 
     private function areManagerDepartmentsRangesEmpty($departmentsRanges) {
@@ -47,28 +48,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function get(): array
     {
-        $rows = DtoEmployee::take(50)->get()->toArray();
+        $rows = DtoEmployee::take(50)->get();
 
-        return $this->serialize($rows);
-    }
-
-    private function serialize(array $rows): array {
-        $employees = [];
-
-        foreach($rows as $row) {
-            $id = new Id($row["emp_no"]);
-            $birthDate = new BirthDate($row["birth_date"]);
-            $firstName = new FirstName($row["first_name"]);
-            $lastName = new LastName($row["last_name"]);
-            $gender = new Gender($row["gender"]);
-            $hireDate = new HireDate($row["hire_date"]);
-
-            $employee = new Employee($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
-
-            $employees[] = $employee->serialize();
-        }
-
-        return $employees;
+        return $this->convertToEmployees($rows);
     }
 
     public function find(Id $id): ?Employee
@@ -77,6 +59,21 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
         if (is_null($row)) return null;
 
+        return $this->convertToEmployee($row);
+    }
+
+    private function convertToEmployees(Collection $rows): array {
+        $employees = [];
+
+        foreach($rows as $row) {
+            $employees[] = $this->convertToEmployee($row);
+        }
+
+        return $employees;
+    }
+
+    private function convertToEmployee(DtoEmployee $row): Employee {
+        $id = new Id($row["emp_no"]);
         $birthDate = new BirthDate($row["birth_date"]);
         $firstName = new FirstName($row["first_name"]);
         $lastName = new LastName($row["last_name"]);
