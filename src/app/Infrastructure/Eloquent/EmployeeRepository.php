@@ -73,6 +73,16 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function find(Id $id): ?Employee
     {
-        return null;
+        $row = DtoEmployee::find((string)$id);
+
+        if (is_null($row)) return null;
+
+        $birthDate = new BirthDate($row["birth_date"]);
+        $firstName = new FirstName($row["first_name"]);
+        $lastName = new LastName($row["last_name"]);
+        $gender = new Gender($row["gender"]);
+        $hireDate = new HireDate($row["hire_date"]);
+
+        return new Employee($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
     }
 }

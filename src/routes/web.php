@@ -12,3 +12,4 @@
 */
 
 $router->get('/employees', 'EmployeesController@get');
+$router->get('/employees/{id}', 'EmployeesController@find');
