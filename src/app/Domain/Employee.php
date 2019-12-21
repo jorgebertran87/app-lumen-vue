@@ -117,15 +117,4 @@ class Employee
     public function departmentsRanges(): array {
         return $this->departmentsRanges;
     }
-
-    public function serialize(): array {
-        return [
-            'id' => (string)$this->id(),
-            'birthDate' => (string)$this->birthDate(),
-            'firstName' => (string)$this->firstName(),
-            'lastName' => (string)$this->lastName(),
-            'gender' => (string)$this->gender(),
-            'hireDate' => (string)$this->hireDate(),
-        ];
-    }
 }

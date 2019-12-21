@@ -47,4 +47,9 @@ class ManagerRepositoryStub implements ManagerRepository
 
         return null;
     }
+
+    public function get(): array
+    {
+        return [];
+    }
 }

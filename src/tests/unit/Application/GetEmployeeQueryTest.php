@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use PHPUnit\Framework\TestCase;
 use App\Application\GetEmployeeQuery;
+use App\Application\QueryException;
 use App\Domain\Employee;
+use PHPUnit\Framework\TestCase;
 use UnitTests\Domain\FakeEmployee;
 
 class GetEmployeeQueryTest extends TestCase
@@ -26,7 +27,7 @@ class GetEmployeeQueryTest extends TestCase
     }
 
     /** @test */
-    public function itShouldReturnNull() {
+    public function itShouldThrowException() {
         $bus = new QueryBusStub();
 
         $employeeRepository = $bus->employeeRepository();
@@ -34,9 +35,8 @@ class GetEmployeeQueryTest extends TestCase
         $employeeRepository->add($employee);
 
         $getEmployeeQuery = new GetEmployeeQuery((string)$employee->id() . 'aaa');
+        $this->expectException(QueryException::class);
         $employee = $bus->handle($getEmployeeQuery);
-
-        $this->assertNull($employee);
     }
 
 }

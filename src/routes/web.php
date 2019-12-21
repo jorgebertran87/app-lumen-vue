@@ -13,3 +13,6 @@
 
 $router->get('/employees', 'EmployeesController@get');
 $router->get('/employees/{id}', 'EmployeesController@find');
+
+$router->get('/managers', 'ManagersController@get');
+
