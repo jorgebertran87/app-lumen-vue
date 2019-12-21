@@ -4,6 +4,7 @@ namespace App\Infrastructure\Eloquent;
 
 
 use App\Application\EmployeeRepository as EmployeeRepositoryInterface;
+use App\Domain\Department;
 use App\Domain\DepartmentRange;
 use App\Domain\Employee;
 use App\Domain\Employee\Id;
@@ -55,11 +56,12 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function find(Id $id): ?Employee
     {
-        $row = DtoEmployee::find((string)$id);
+        /** @var DtoEmployee $row */
+        $row = DtoEmployee::with('departments')->with('salaries')->find((string)$id);
 
         if (is_null($row)) return null;
 
-        return $this->convertToEmployee($row);
+        return $this->convertToEmployee($row, true);
     }
 
     private function convertToEmployees(Collection $rows): array {
@@ -72,7 +74,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         return $employees;
     }
 
-    private function convertToEmployee(DtoEmployee $row): Employee {
+    private function convertToEmployee(DtoEmployee $row, $extraInfo=false): Employee {
         $id = new Id($row["emp_no"]);
         $birthDate = new BirthDate($row["birth_date"]);
         $firstName = new FirstName($row["first_name"]);
@@ -80,6 +82,27 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         $gender = new Gender($row["gender"]);
         $hireDate = new HireDate($row["hire_date"]);
 
-        return new Employee($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
+        $employee = new Employee($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
+
+        if (!$extraInfo) {
+            return $employee;
+        }
+
+        foreach($row->departments as $rowDepartment) {
+            $department = new Department(new Department\Name($rowDepartment['dept_name']));
+            $from = new DepartmentRange\Date(new DateTimeImmutable($rowDepartment->pivot['from_date']));
+            $to = new DepartmentRange\Date(new DateTimeImmutable($rowDepartment->pivot['to_date']));
+            $departmentRange = new DepartmentRange($department, $from, $to);
+            $employee->addDepartmentRange($departmentRange);
+        }
+
+        foreach($row->salaries as $rowSalary) {
+            $from = new DateTimeImmutable($rowSalary['from_date']);
+            $to = new DateTimeImmutable($rowSalary['to_date']);
+            $salary = new Employee\Salary($rowSalary['salary'], $from, $to);
+            $employee->addSalary($salary);
+        }
+
+        return $employee;
     }
 }

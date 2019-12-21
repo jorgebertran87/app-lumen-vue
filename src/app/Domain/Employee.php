@@ -67,6 +67,7 @@ class Employee
         $this->gender = $gender;
         $this->hireDate = $hireDate;
         $this->departmentsRanges = [];
+        $this->salaries = [];
     }
 
     public function addTitle(Title $title): void {

@@ -38,4 +38,16 @@ class Salary
         $this->from = $from;
         $this->to = $to;
     }
+
+    public function value(): float {
+        return $this->value;
+    }
+
+    public function from(): DateTimeImmutable {
+        return $this->from;
+    }
+
+    public function to(): DateTimeImmutable {
+        return $this->to;
+    }
 }
