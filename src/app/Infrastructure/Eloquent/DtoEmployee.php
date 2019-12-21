@@ -19,7 +19,7 @@ class DtoEmployee extends Model
             'dept_no',
             'emp_no',
             'dept_no'
-        );
+        )->withPivot('from_date', 'to_date');
     }
 
     public function salaries()

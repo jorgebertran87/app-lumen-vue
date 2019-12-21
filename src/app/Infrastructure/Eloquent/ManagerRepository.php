@@ -36,6 +36,7 @@ class ManagerRepository implements ManagerRepositoryInterface
 
     public function findByIdAndDate(Id $id, ?\DateTimeImmutable $date): ?Manager
     {
+        /** @var DtoManager $row */
         $row = DtoManager::with('departments')->whereHas('departments')->find((string)$id);
 
         if ($row) {
