@@ -19,27 +19,28 @@ use Illuminate\Database\Eloquent\Collection;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
-    public function getFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): array
+    public function getFromManagerDepartmentsRangesAndDate(PaginationFilters $filters, array $managerDepartmentsRanges, DateTimeImmutable $date): array
     {
         if ($this->areManagerDepartmentsRangesEmpty($managerDepartmentsRanges)) {
             return [];
         }
 
+        $numRowsToSkip = ($filters->numPage()-1)*$filters->numRows();
         $rows = DtoEmployee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
             $query->where(function($query) use ($date, $managerDepartmentsRanges) {
                 $query
-                ->where('from_date', '<=', $date)->where('to_date', '>=', $date)
-                ->where(function($query) use($managerDepartmentsRanges) {
-                    /** @var DepartmentRange $managerDepartmentRange */
-                    foreach($managerDepartmentsRanges as $managerDepartmentRange) {
-                        $name = $managerDepartmentRange->department()->name()->value();
-                        $query->orWhere(function($query) use ($name) {
-                            $query->where('dept_name', $name);
-                        });
-                    }
-                });
+                    ->where('from_date', '<=', $date)->where('to_date', '>=', $date)
+                    ->where(function($query) use($managerDepartmentsRanges) {
+                        /** @var DepartmentRange $managerDepartmentRange */
+                        foreach($managerDepartmentsRanges as $managerDepartmentRange) {
+                            $name = $managerDepartmentRange->department()->name()->value();
+                            $query->orWhere(function($query) use ($name) {
+                                $query->where('dept_name', $name);
+                            });
+                        }
+                    });
             });
-        })->take(20)->get();
+        })->skip($numRowsToSkip)->take($filters->numRows())->get();
 
         return $this->convertToEmployees($rows);
     }
@@ -111,5 +112,28 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function getCount(): int
     {
         return DtoEmployee::count();
+    }
+
+    public function getCountFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): int
+    {
+        if ($this->areManagerDepartmentsRangesEmpty($managerDepartmentsRanges)) {
+            return 0;
+        }
+
+        return DtoEmployee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
+            $query->where(function($query) use ($date, $managerDepartmentsRanges) {
+                $query
+                    ->where('from_date', '<=', $date)->where('to_date', '>=', $date)
+                    ->where(function($query) use($managerDepartmentsRanges) {
+                        /** @var DepartmentRange $managerDepartmentRange */
+                        foreach($managerDepartmentsRanges as $managerDepartmentRange) {
+                            $name = $managerDepartmentRange->department()->name()->value();
+                            $query->orWhere(function($query) use ($name) {
+                                $query->where('dept_name', $name);
+                            });
+                        }
+                    });
+            });
+        })->count();
     }
 }

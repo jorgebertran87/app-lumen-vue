@@ -29,6 +29,7 @@ class GetEmployeesQueryHandler implements QueryHandler
      */
     public function handle($query)
     {
+        $paginationFilters = new PaginationFilters($query->page(), $query->rows());
         $departmentsRanges = null;
         $date = null;
 
@@ -40,10 +41,8 @@ class GetEmployeesQueryHandler implements QueryHandler
                 $departmentsRanges = $manager->departmentsRanges();
             }
 
-            return $this->employeeRepository->getFromManagerDepartmentsRangesAndDate($departmentsRanges, $date);
+            return $this->employeeRepository->getFromManagerDepartmentsRangesAndDate($paginationFilters, $departmentsRanges, $date);
         }
-
-        $paginationFilters = new PaginationFilters($query->page(), $query->rows());
 
         return $this->employeeRepository->get($paginationFilters);
     }
