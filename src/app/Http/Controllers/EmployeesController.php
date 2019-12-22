@@ -32,7 +32,7 @@ class EmployeesController extends Controller
 
         $employees = $this->queryBus->handle($query);
 
-        $totalQuery = new GetTotalEmployeesQuery();
+        $totalQuery = new GetTotalEmployeesQuery($managerId, $date);
 
         $total = $this->queryBus->handle($totalQuery);
 
