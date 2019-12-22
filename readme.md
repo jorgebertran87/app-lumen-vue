@@ -1,16 +1,20 @@
-# Laravel/Lumen Docker Scaffold
+# Docline test
 
 ### **Description**
 
-This will create a dockerized stack for a Laravel/Lumen application, consisted of the following containers:
+This will create a dockerized stack for a Lumen application, consisted of the following containers:
 -  **app**, your PHP application container
 
         Nginx, PHP7.2 PHP7.2-fpm, Composer, NPM, Node.js v8.x
     
 -  **mysql**, MySQL database container ([mysql](https://hub.docker.com/_/mysql/) official Docker image)
 
+-  **client**, Vue application container ([vue](https://vuejs.org/) official page)
 #### **Directory Structure**
 ```
++-- client
+|   +-- Dockerfile
+|   +-- app <vue application>
 +-- src <project root>
 +-- resources
 |   +-- default
@@ -48,27 +52,20 @@ This will create a dockerized stack for a Laravel/Lumen application, consisted o
 
     This will download/build all the required images and start the stack containers. It usually takes a bit of time, so grab a cup of coffee.
 
-4. After the whole stack is up, enter the app container and install the framework of your choice:
+4. After the whole stack is up, execute the following commands:
 
-    **Laravel**
-
+    
     ```
-    $ docker exec -it app bash
-    $ composer create-project --prefer-dist laravel/laravel .
-    $ nano .env
-    $ php artisan migrate --seed
-    ```
-
-    **Lumen**
-
-    ```
-    $ docker exec -it app bash
-    $ composer create-project --prefer-dist laravel/lumen .
-    $ nano .env
-    $ php artisan migrate --seed
+    # Migrate db info
+    docker-compose run --rm --entrypoint "/scripts/dump_data.sh" app
+    # Install node packages in client
+    docker-compose run --rm --entrypoint "npm install" client
+    # Install vendors in app
+    docker-compose run --rm --entrypoint "composer install" app
     ```
 
-5. That's it! Navigate to [http://localhost](http://localhost) to access the application.
+5. Create your .env file from .env.template in src folder
+
 
 **Default configuration values** 
 
@@ -80,3 +77,4 @@ The following values should be replaced in your `.env` file if you're willing to
     DB_USERNAME=user
     DB_PASSWORD=myuserpass
     
+6. That's it! Navigate to [http://localhost:8080](http://localhost:8080) to access the application.    
