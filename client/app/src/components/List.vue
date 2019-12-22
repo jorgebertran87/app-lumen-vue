@@ -33,9 +33,40 @@
                 :busy.sync="isBusy"
                 :per-page="perPage"
         >
+            <template v-slot:cell(id)="row">
+                <div @click="fetchItem(row.item.id)" style="cursor: pointer" v-b-modal="'modal-' + row.item.id">{{row.item.id}}</div>
+                <b-modal :id="'modal-' + row.item.id" :title="'Employee Details for ' + itemSelected.firstName + ' ' + itemSelected.lastName">
+                    <b-table
+                            id="departments"
+                            responsive
+                            striped
+                            bordered
+                            :items="itemSelected.departments"
+                    >
+                    </b-table>
+                    <b-table
+                            id="salaries"
+                            responsive
+                            striped
+                            bordered
+                            :items="itemSelected.salaries"
+                    >
+                    </b-table>
+                </b-modal>
+            </template>
+
+            <template v-slot:row-details="row">
+
+            </template>
 
         </b-table>
+        <div>
+
+
+
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -53,10 +84,21 @@
                 options: [ ],
                 selected: '',
                 items: [],
-                numRequests: 0
+                numRequests: 0,
+                itemSelected: {}
             }
         },
         methods: {
+            fetchItem(id) {
+                let url = 'http://0.0.0.0/employees/' + id;
+
+                const self = this;
+                let promise = axios.get(url);
+
+                return promise.then((response) => {
+                    self.itemSelected = response.data;
+                });
+            },
             fetchItems() {
                 let url = 'http://0.0.0.0/employees?page=' + this.currentPage + '&rows=' + this.perPage;
 
@@ -69,6 +111,10 @@
 
                 return promise.then((response) => {
                     self.rows = response.data.rows;
+                    const items = response.data.data;
+                    items.forEach(item => {
+                       item._rowVariant = { 'v-b-modal': 'modal-' + item.id }
+                    });
                     self.items = response.data.data;
                 });
             },
