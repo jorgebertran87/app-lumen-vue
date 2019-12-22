@@ -60,8 +60,10 @@ class GetEmployeesQueryTest extends TestCase
         /** @var DepartmentRange $departmentRange */
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
+        $page = 1;
+        $rows = 50;
 
-        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery($page,$rows,(string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(1, $employees);
@@ -85,8 +87,10 @@ class GetEmployeesQueryTest extends TestCase
         /** @var DepartmentRange $departmentRange */
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
+        $page = 1;
+        $rows = 50;
 
-        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery($page, $rows, (string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(0, $employees);
@@ -110,8 +114,10 @@ class GetEmployeesQueryTest extends TestCase
         /** @var DepartmentRange $departmentRange */
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
+        $page = 1;
+        $rows = 50;
 
-        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery($page, $rows, (string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(0, $employees);
@@ -135,8 +141,10 @@ class GetEmployeesQueryTest extends TestCase
         /** @var DepartmentRange $departmentRange */
         $departmentRange = $departmentsRanges[0];
         $from = $departmentRange->from()->value()->format('Y-m-d');
+        $page = 1;
+        $rows = 50;
 
-        $getEmployeesQuery = new GetEmployeesQuery((string)$manager->id(), $from);
+        $getEmployeesQuery = new GetEmployeesQuery($page, $rows, (string)$manager->id(), $from);
         $employees = $bus->handle($getEmployeesQuery);
 
         $this->assertCount(0, $employees);

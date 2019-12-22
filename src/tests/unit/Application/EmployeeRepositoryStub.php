@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UnitTests\Application;
 
 use App\Application\EmployeeRepository;
+use App\Application\PaginationFilters;
 use App\Domain\DepartmentRange;
 use App\Domain\Employee;
 use App\Domain\Employee\Id;
@@ -22,7 +23,7 @@ class EmployeeRepositoryStub implements EmployeeRepository
         $this->employees = [];
     }
 
-    public function get(): array
+    public function get(PaginationFilters $filters): array
     {
         return $this->employees;
     }
@@ -44,7 +45,7 @@ class EmployeeRepositoryStub implements EmployeeRepository
         $this->employees[] = $employee;
     }
 
-    public function getFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): array
+    public function getFromManagerDepartmentsRangesAndDate(PaginationFilters $filters, array $managerDepartmentsRanges, DateTimeImmutable $date): array
     {
         $employees = [];
         /** @var FakeEmployee $employee */
@@ -85,5 +86,15 @@ class EmployeeRepositoryStub implements EmployeeRepository
         }
 
         return $employees;
+    }
+
+    public function getCount(): int
+    {
+        return 0;
+    }
+
+    public function getCountFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): int
+    {
+        return 0;
     }
 }
