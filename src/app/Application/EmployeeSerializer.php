@@ -25,7 +25,7 @@ class EmployeeSerializer
             /** @var DepartmentRange $departmentRange */
             foreach($employee->departmentsRanges() as $departmentRange) {
                 $result['departments'][] = [
-                    "name" => $departmentRange->department()->name()->value(),
+                    "department" => $departmentRange->department()->name()->value(),
                     "from" => $departmentRange->from()->value()->format('Y-m-d'),
                     "to" => $departmentRange->to()->value()->format('Y-m-d')
                 ];
@@ -37,7 +37,7 @@ class EmployeeSerializer
             /** @var Salary $salary */
             foreach($employee->salaries() as $salary) {
                 $result['salaries'][] = [
-                    "value" => $salary->value(),
+                    "salary" => number_format($salary->value()/100, 2, '.', ''),
                     "from" => $salary->from()->format('Y-m-d'),
                     "to" => $salary->to()->format('Y-m-d')
                 ];

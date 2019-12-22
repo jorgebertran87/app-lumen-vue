@@ -96,7 +96,12 @@
                 let promise = axios.get(url);
 
                 return promise.then((response) => {
-                    self.itemSelected = response.data;
+                    const item = response.data;
+                    item.salaries.forEach(salary => {
+                        salary.salary += ' €';
+                    });
+
+                    self.itemSelected = item;
                 });
             },
             fetchItems() {
@@ -111,10 +116,6 @@
 
                 return promise.then((response) => {
                     self.rows = response.data.rows;
-                    const items = response.data.data;
-                    items.forEach(item => {
-                       item._rowVariant = { 'v-b-modal': 'modal-' + item.id }
-                    });
                     self.items = response.data.data;
                 });
             },
