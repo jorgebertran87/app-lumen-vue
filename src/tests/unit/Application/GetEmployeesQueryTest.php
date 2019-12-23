@@ -15,7 +15,7 @@ use UnitTests\Domain\FakeManager;
 
 class GetEmployeesQueryTest extends TestCase
 {
-    /** @tesst */
+    /** @test */
     public function itShouldReturnEmployees() {
         $bus = new QueryBusStub();
 
