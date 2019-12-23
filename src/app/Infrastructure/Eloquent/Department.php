@@ -4,8 +4,8 @@ namespace App\Infrastructure\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DtoTitle extends Model
+class Department extends Model
 {
-    public $table = "titles";
+    public $table = "departments";
     public $timestamps = false;
 }

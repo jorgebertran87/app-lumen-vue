@@ -4,7 +4,7 @@ namespace App\Infrastructure\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DtoManager extends Model
+class Manager extends Model
 {
     public $table = "employees";
     public $timestamps = false;
@@ -13,7 +13,7 @@ class DtoManager extends Model
     public function departments()
     {
         return $this->belongsToMany(
-            'App\Infrastructure\Eloquent\DtoDepartment',
+            'App\Infrastructure\Eloquent\Department',
             'dept_manager',
             'emp_no',
             'dept_no',
