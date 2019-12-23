@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace UnitTests\Domain;
 
+use App\Domain\DepartmentRange;
+use App\Domain\InvalidDepartmentRangeException;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use App\Domain\Employee;
@@ -14,11 +16,20 @@ use App\Domain\Employee\InvalidSalaryException;
 
 class EmployeeTest extends TestCase
 {
+    /**
+     * @var FakeEmployee
+     */
+    private $employee;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->employee = new FakeEmployee();
+    }
+
     /** @test */
     public function itShouldCreateAValidEmployee() {
-        $employee = new FakeEmployee();
-
-        $this->assertInstanceOf(Employee::class, $employee);
+        $this->assertInstanceOf(Employee::class, $this->employee);
     }
 
     /**
@@ -26,11 +37,10 @@ class EmployeeTest extends TestCase
      * @throws InvalidTitleException
      */
     public function itShouldReturnATitle() {
-        $employee = new FakeEmployee();
         $title = new Title("title", new DateTimeImmutable());
 
-        $employee->addTitle($title);
-        $titles = $employee->titles();
+        $this->employee->addTitle($title);
+        $titles = $this->employee->titles();
 
         $this->assertInstanceOf(Title::class, $titles[0]);
     }
@@ -40,12 +50,65 @@ class EmployeeTest extends TestCase
      * @throws InvalidSalaryException
      */
     public function itShouldReturnASalary() {
-        $employee = new FakeEmployee();
         $salary = new Salary(1300.52, new DateTimeImmutable());
 
-        $employee->addSalary($salary);
-        $salaries = $employee->salaries();
+        $this->employee->addSalary($salary);
+        $salaries = $this->employee->salaries();
 
         $this->assertInstanceOf(Salary::class, $salaries[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnADepartmentRange() {
+        $departmentRange = FakeDepartmentRange::withFirstRange();
+
+        $this->employee->addDepartmentRange($departmentRange);
+        $departmentRanges = $this->employee->departmentsRanges();
+
+        $this->assertInstanceOf(DepartmentRange::class, $departmentRanges[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValidId() {
+        $this->assertInstanceOf(Employee\Id::class, $this->employee->id());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValidBirthDate() {
+        $this->assertInstanceOf(Employee\BirthDate::class, $this->employee->birthDate());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValidFirstName() {
+        $this->assertInstanceOf(Employee\FirstName::class, $this->employee->firstName());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValidLastName() {
+        $this->assertInstanceOf(Employee\LastName::class, $this->employee->lastName());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValidGender() {
+        $this->assertInstanceOf(Employee\Gender::class, $this->employee->gender());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAValidHireDate() {
+        $this->assertInstanceOf(Employee\HireDate::class, $this->employee->hireDate());
     }
 }
