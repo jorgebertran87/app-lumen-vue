@@ -11,15 +11,26 @@ use App\Domain\Employee\InvalidBirthDateException;
 class BirthDateTest extends TestCase
 {
     /**
-     * @test
+     * @var BirthDate
+     */
+    private $birthDate;
+
+    /**
      * @throws InvalidBirthDateException
      */
-    public function itShouldCreateAValidHireDate() {
+    public function setUp(): void
+    {
+        parent::setUp();
+
         $value = "2019-05-20";
+        $this->birthDate = new BirthDate($value);
+    }
 
-        $birthDate = new BirthDate($value);
-
-        $this->assertInstanceOf(BirthDate::class, $birthDate);
+    /**
+     * @test
+     */
+    public function itShouldCreateAValidBirthDate() {
+        $this->assertInstanceOf(BirthDate::class, $this->birthDate);
     }
 
     /**
@@ -29,6 +40,24 @@ class BirthDateTest extends TestCase
     public function itShouldThrowAnExceptionForInvalidBirthDate() {
         $value = "invalid_date";
         $this->expectException(InvalidBirthDateException::class);
-        $hireDate = new BirthDate($value);
+        $birthDate = new BirthDate($value);
+    }
+
+    /**
+     * @test
+     * @throws InvalidBirthDateException
+     */
+    public function itShouldThrowAnExceptionForAFutureBirthDate() {
+        $now = new \DateTimeImmutable();
+        $oneMinuteLater = $now->add(new \DateInterval('PT1M'));
+        $this->expectException(InvalidBirthDateException::class);
+        $birthDate = new BirthDate($oneMinuteLater->format('Y-m-d H:i:s'));
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldReturnAFormattedDateTimeToDate() {
+        $this->assertEquals($this->birthDate->value()->format('Y-m-d'), $this->birthDate->__toString());
     }
 }

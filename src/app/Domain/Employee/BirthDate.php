@@ -31,6 +31,10 @@ class BirthDate
         }
     }
 
+    public function value(): DateTimeImmutable {
+        return $this->value;
+    }
+
     public function __toString(): string
     {
         return $this->value->format('Y-m-d');
