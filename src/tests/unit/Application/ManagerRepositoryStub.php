@@ -50,6 +50,6 @@ class ManagerRepositoryStub implements ManagerRepository
 
     public function get(): array
     {
-        return [];
+        return $this->managers;
     }
 }
