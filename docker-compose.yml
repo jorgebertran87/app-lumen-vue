@@ -43,6 +43,13 @@ services:
     depends_on:
       - app
 
+  behat:
+    image: docksal/behat
+    container_name: behat
+    hostname: behat
+    volumes:
+      - ./src:/src
+
 
 secrets:
   db_root_password:
