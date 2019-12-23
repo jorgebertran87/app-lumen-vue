@@ -25,4 +25,12 @@ class FakeDepartmentRange extends DepartmentRange
 
         return new self($department, $from, $to);
     }
+
+    public static function withInvalidRange(string $name = null): self {
+        $department = new FakeDepartment($name ? $name: 'name');
+        $from = new Date(new DateTimeImmutable('2019-07-01'));
+        $to = new Date(new DateTimeImmutable('2018-07-31'));
+
+        return new self($department, $from, $to);
+    }
 }
