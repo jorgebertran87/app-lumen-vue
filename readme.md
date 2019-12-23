@@ -10,6 +10,9 @@ This will create a dockerized stack for a Vue application with Lumen API, consis
 -  **mysql**, MySQL database container ([mysql](https://hub.docker.com/_/mysql/) official Docker image)
 
 -  **client**, Vue application container ([vue](https://vuejs.org/) official page)
+
+-  **behat**, Functional tests for api
+
 #### **Directory Structure**
 ```
 +-- client
@@ -81,6 +84,12 @@ This will create a dockerized stack for a Vue application with Lumen API, consis
 
 **Tests**
 
+- Unit
 ```
 docker-compose run --rm --entrypoint "/var/www/html/vendor/bin/phpunit tests" app
+```
+
+- Functional
+```
+docker-compose run behat
 ```    
