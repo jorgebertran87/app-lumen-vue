@@ -90,7 +90,7 @@ class EmployeeRepositoryStub implements EmployeeRepository
 
     public function getCount(): int
     {
-        return 0;
+        return count($this->employees);
     }
 
     public function getCountFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): int
