@@ -30,4 +30,13 @@ class DtoEmployee extends Model
             'emp_no'
         );
     }
+
+    public function titles()
+    {
+        return $this->hasMany(
+            'App\Infrastructure\Eloquent\DtoTitle',
+            'emp_no',
+            'emp_no'
+        );
+    }
 }

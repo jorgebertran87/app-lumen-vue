@@ -36,4 +36,16 @@ class Title
         $this->from = $from;
         $this->to = $to;
     }
+
+    public function value(): string {
+        return $this->value;
+    }
+
+    public function from(): DateTimeImmutable {
+        return $this->from;
+    }
+
+    public function to(): DateTimeImmutable {
+        return $this->to;
+    }
 }

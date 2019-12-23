@@ -60,7 +60,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function find(Id $id): ?Employee
     {
         /** @var DtoEmployee $row */
-        $row = DtoEmployee::with('departments')->with('salaries')->find((string)$id);
+        $row = DtoEmployee::with('departments')->with('salaries')->with('titles')->find((string)$id);
 
         if (is_null($row)) return null;
 
@@ -106,6 +106,14 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             $to = new DateTimeImmutable($rowSalary['to_date']);
             $salary = new Employee\Salary($rowSalary['salary'], $from, $to);
             $employee->addSalary($salary);
+        }
+
+        foreach($row->titles as $rowTitle) {
+            $value = $rowTitle['title'];
+            $from = new DateTimeImmutable($rowSalary['from_date']);
+            $to = new DateTimeImmutable($rowSalary['to_date']);
+            $title = new Employee\Title($value, $from, $to);
+            $employee->addTitle($title);
         }
 
         return $employee;

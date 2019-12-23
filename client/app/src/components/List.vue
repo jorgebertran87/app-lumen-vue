@@ -52,6 +52,14 @@
                             :items="itemSelected.salaries"
                     >
                     </b-table>
+                    <b-table
+                            id="titles"
+                            responsive
+                            striped
+                            bordered
+                            :items="itemSelected.titles"
+                    >
+                    </b-table>
                 </b-modal>
             </template>
 

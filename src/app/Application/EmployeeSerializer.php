@@ -7,6 +7,7 @@ namespace App\Application;
 use App\Domain\DepartmentRange;
 use App\Domain\Employee;
 use App\Domain\Employee\Salary;
+use App\Domain\Employee\Title;
 
 class EmployeeSerializer
 {
@@ -40,6 +41,18 @@ class EmployeeSerializer
                     "salary" => number_format($salary->value()/100, 2, '.', ''),
                     "from" => $salary->from()->format('Y-m-d'),
                     "to" => $salary->to()->format('Y-m-d')
+                ];
+            }
+        }
+
+        if (count($employee->titles()) > 0) {
+            $result['titles'] = [];
+            /** @var Title $title */
+            foreach($employee->titles() as $title) {
+                $result['titles'][] = [
+                    "title" => $title->value(),
+                    "from" => $title->from()->format('Y-m-d'),
+                    "to" => $title->to()->format('Y-m-d')
                 ];
             }
         }
