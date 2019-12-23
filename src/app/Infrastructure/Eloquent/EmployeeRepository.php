@@ -7,7 +7,7 @@ use App\Application\EmployeeRepository as EmployeeRepositoryInterface;
 use App\Application\PaginationFilters;
 use App\Domain\Department;
 use App\Domain\DepartmentRange;
-use App\Domain\Employee;
+use App\Domain\Employee as EmployeeDomain;
 use App\Domain\Employee\Id;
 use App\Domain\Employee\BirthDate;
 use App\Domain\Employee\FirstName;
@@ -26,7 +26,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         }
 
         $numRowsToSkip = ($filters->numPage()-1)*$filters->numRows();
-        $rows = DtoEmployee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
+        $rows = Employee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
             $query->where(function($query) use ($date, $managerDepartmentsRanges) {
                 $query
                     ->where('from_date', '<=', $date)->where('to_date', '>=', $date)
@@ -52,15 +52,15 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function get(PaginationFilters $filters): array
     {
         $numRowsToSkip = ($filters->numPage()-1)*$filters->numRows();
-        $rows = DtoEmployee::skip($numRowsToSkip)->take($filters->numRows())->get();
+        $rows = Employee::skip($numRowsToSkip)->take($filters->numRows())->get();
 
         return $this->convertToEmployees($rows);
     }
 
-    public function find(Id $id): ?Employee
+    public function find(Id $id): ?EmployeeDomain
     {
-        /** @var DtoEmployee $row */
-        $row = DtoEmployee::with('departments')->with('salaries')->with('titles')->find((string)$id);
+        /** @var Employee $row */
+        $row = Employee::with('departments')->with('salaries')->with('titles')->find((string)$id);
 
         if (is_null($row)) return null;
 
@@ -77,7 +77,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         return $employees;
     }
 
-    private function convertToEmployee(DtoEmployee $row, $extraInfo=false): Employee {
+    private function convertToEmployee(Employee $row, $extraInfo=false): EmployeeDomain
+    {
         $id = new Id($row["emp_no"]);
         $birthDate = new BirthDate($row["birth_date"]);
         $firstName = new FirstName($row["first_name"]);
@@ -85,7 +86,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         $gender = new Gender($row["gender"]);
         $hireDate = new HireDate($row["hire_date"]);
 
-        $employee = new Employee($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
+        $employee = new EmployeeDomain($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
 
         if (!$extraInfo) {
             return $employee;
@@ -104,7 +105,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         foreach($row->salaries as $rowSalary) {
             $from = new DateTimeImmutable($rowSalary['from_date']);
             $to = new DateTimeImmutable($rowSalary['to_date']);
-            $salary = new Employee\Salary($rowSalary['salary'], $from, $to);
+            $salary = new EmployeeDomain\Salary($rowSalary['salary'], $from, $to);
             $employee->addSalary($salary);
         }
 
@@ -112,7 +113,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             $value = $rowTitle['title'];
             $from = new DateTimeImmutable($rowSalary['from_date']);
             $to = new DateTimeImmutable($rowSalary['to_date']);
-            $title = new Employee\Title($value, $from, $to);
+            $title = new EmployeeDomain\Title($value, $from, $to);
             $employee->addTitle($title);
         }
 
@@ -121,7 +122,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function getCount(): int
     {
-        return DtoEmployee::count();
+        return Employee::count();
     }
 
     public function getCountFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): int
@@ -130,7 +131,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             return 0;
         }
 
-        return DtoEmployee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
+        return Employee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
             $query->where(function($query) use ($date, $managerDepartmentsRanges) {
                 $query
                     ->where('from_date', '<=', $date)->where('to_date', '>=', $date)

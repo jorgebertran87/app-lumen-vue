@@ -12,20 +12,20 @@ use App\Domain\Employee\Gender;
 use App\Domain\Employee\HireDate;
 use App\Domain\Employee\Id;
 use App\Domain\Employee\LastName;
-use App\Domain\Manager;
+use App\Domain\Manager as ManagerDomain;
 use Illuminate\Database\Eloquent\Collection;
 
 class ManagerRepository implements ManagerRepositoryInterface
 {
     public function get(): array {
-        $rows = DtoManager::whereHas('departments')->get();
+        $rows = Manager::whereHas('departments')->get();
 
         return $this->convertToManagers($rows);
     }
 
-    public function find(Id $id): ?Manager
+    public function find(Id $id): ?ManagerDomain
     {
-        $row = DtoManager::whereHas('departments')->find((string)$id);
+        $row = Manager::whereHas('departments')->find((string)$id);
 
         if ($row) {
             return $this->convertToManager($row);
@@ -34,10 +34,10 @@ class ManagerRepository implements ManagerRepositoryInterface
         return null;
     }
 
-    public function findByIdAndDate(Id $id, ?\DateTimeImmutable $date): ?Manager
+    public function findByIdAndDate(Id $id, ?\DateTimeImmutable $date): ?ManagerDomain
     {
-        /** @var DtoManager $row */
-        $row = DtoManager::with('departments')->whereHas('departments')->find((string)$id);
+        /** @var Manager $row */
+        $row = Manager::with('departments')->whereHas('departments')->find((string)$id);
 
         if ($row) {
             $manager = $this->convertToManager($row);
@@ -71,7 +71,8 @@ class ManagerRepository implements ManagerRepositoryInterface
         return $managers;
     }
 
-    private function convertToManager(DtoManager $row): Manager {
+    private function convertToManager(Manager $row): ManagerDomain
+    {
         $id = new Id($row["emp_no"]);
         $birthDate = new BirthDate($row["birth_date"]);
         $firstName = new FirstName($row["first_name"]);
@@ -79,6 +80,6 @@ class ManagerRepository implements ManagerRepositoryInterface
         $gender = new Gender($row["gender"]);
         $hireDate = new HireDate($row["hire_date"]);
 
-        return new Manager($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
+        return new ManagerDomain($id, $birthDate, $firstName, $lastName, $gender, $hireDate);
     }
 }

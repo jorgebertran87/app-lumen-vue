@@ -4,7 +4,7 @@ namespace App\Infrastructure\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DtoEmployee extends Model
+class Employee extends Model
 {
     public $table = "employees";
     public $timestamps = false;
@@ -13,7 +13,7 @@ class DtoEmployee extends Model
     public function departments()
     {
         return $this->belongsToMany(
-            'App\Infrastructure\Eloquent\DtoDepartment',
+            'App\Infrastructure\Eloquent\Department',
             'dept_emp',
             'emp_no',
             'dept_no',
@@ -25,7 +25,7 @@ class DtoEmployee extends Model
     public function salaries()
     {
         return $this->hasMany(
-            'App\Infrastructure\Eloquent\DtoSalary',
+            'App\Infrastructure\Eloquent\Salary',
             'emp_no',
             'emp_no'
         );
@@ -34,7 +34,7 @@ class DtoEmployee extends Model
     public function titles()
     {
         return $this->hasMany(
-            'App\Infrastructure\Eloquent\DtoTitle',
+            'App\Infrastructure\Eloquent\Title',
             'emp_no',
             'emp_no'
         );
