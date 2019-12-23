@@ -35,7 +35,7 @@
         >
             <template v-slot:cell(id)="row">
                 <div @click="fetchItem(row.item.id)" style="cursor: pointer" v-b-modal="'modal-' + row.item.id">{{row.item.id}}</div>
-                <b-modal :id="'modal-' + row.item.id" :title="'Employee Details for ' + itemSelected.firstName + ' ' + itemSelected.lastName">
+                <b-modal  hide-footer="true" :id="'modal-' + row.item.id" :title="'Employee Details for ' + itemSelected.firstName + ' ' + itemSelected.lastName">
                     <b-table
                             id="departments"
                             responsive
