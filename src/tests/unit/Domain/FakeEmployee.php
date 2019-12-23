@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UnitTests\Domain;
 
+use App\Domain\Employee\Salary;
+use App\Domain\Employee\Title;
 use DateTimeImmutable;
 use App\Domain\DepartmentRange;
 use App\Domain\Employee;
@@ -39,6 +41,16 @@ class FakeEmployee extends Employee
         $departmentRange = FakeDepartmentRange::withSecondRange();
         $employee = new self();
         $employee->addDepartmentRange($departmentRange);
+
+        return $employee;
+    }
+
+    public static function withAllInfo(): self {
+        $departmentRange = FakeDepartmentRange::withFirstRange();
+        $employee = new self();
+        $employee->addDepartmentRange($departmentRange);
+        $employee->addSalary(new Salary(1200.00, new DateTimeImmutable(), new DateTimeImmutable()));
+        $employee->addTitle(new Title('Engineer', new DateTimeImmutable(), new DateTimeImmutable()));
 
         return $employee;
     }

@@ -21,15 +21,9 @@ class Salary
      */
     private $to;
 
-    const MINIMUM_WAGE = 1000;
-
     /** @throws InvalidSalaryException */
     public function __construct(float $value, DateTimeImmutable $from, DateTimeImmutable $to=null)
     {
-        if ($value < self::MINIMUM_WAGE) {
-            throw InvalidSalaryException::fromValue($value);
-        }
-
         if (!is_null($to) && $from > $to) {
             throw InvalidSalaryException::fromRange($from, $to);
         }
