@@ -28,17 +28,6 @@ class SalaryTest extends TestCase
      * @test
      * @throws InvalidSalaryException
      */
-    public function itShouldThrowAnExceptionForInvalidSalaryValue() {
-        $value = 0.00;
-        $from = new DateTimeImmutable();
-        $this->expectException(InvalidSalaryException::class);
-        $salary = new Salary($value, $from);
-    }
-
-    /**
-     * @test
-     * @throws InvalidSalaryException
-     */
     public function itShouldThrowAnExceptionForInvalidSalaryRange() {
         $value = 1050.52;
         $from = new DateTimeImmutable('2019-05-01');
