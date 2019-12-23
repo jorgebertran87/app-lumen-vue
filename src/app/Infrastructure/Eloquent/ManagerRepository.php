@@ -47,7 +47,9 @@ class ManagerRepository implements ManagerRepositoryInterface
                 $to = new Date(new \DateTimeImmutable($rowDepartment->pivot['to_date']));
 
                 if (is_null($date) || ($from->value() <= $date && $to->value() >= $date)) {
-                    $department = new Department(new Department\Name($rowDepartment['dept_name']));
+                    $id = new Department\Id($rowDepartment['dept_no']);
+                    $name = new Department\Name($rowDepartment['dept_name']);
+                    $department = new Department($id, $name);
                     $departmentRange = new DepartmentRange($department, $from, $to);
                     $manager->addDepartmentRange($departmentRange);
                 }

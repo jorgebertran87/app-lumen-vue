@@ -25,7 +25,7 @@ class Department
     }
 
     public function id(): Id {
-        return $this->id();
+        return $this->id;
     }
 
     public function name(): Name {

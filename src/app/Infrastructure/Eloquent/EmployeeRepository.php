@@ -33,9 +33,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                     ->where(function($query) use($managerDepartmentsRanges) {
                         /** @var DepartmentRange $managerDepartmentRange */
                         foreach($managerDepartmentsRanges as $managerDepartmentRange) {
-                            $name = $managerDepartmentRange->department()->name()->value();
-                            $query->orWhere(function($query) use ($name) {
-                                $query->where('dept_name', $name);
+                            $id = $managerDepartmentRange->department()->id()->value();
+                            $query->orWhere(function($query) use ($id) {
+                                $query->where('dept_emp.dept_no', $id);
                             });
                         }
                     });
@@ -92,7 +92,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         }
 
         foreach($row->departments as $rowDepartment) {
-            $department = new Department(new Department\Name($rowDepartment['dept_name']));
+            $id = new Department\Id($rowDepartment['dept_no']);
+            $name = new Department\Name($rowDepartment['dept_name']);
+            $department = new Department($id, $name);
             $from = new DepartmentRange\Date(new DateTimeImmutable($rowDepartment->pivot['from_date']));
             $to = new DepartmentRange\Date(new DateTimeImmutable($rowDepartment->pivot['to_date']));
             $departmentRange = new DepartmentRange($department, $from, $to);
@@ -127,9 +129,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                     ->where(function($query) use($managerDepartmentsRanges) {
                         /** @var DepartmentRange $managerDepartmentRange */
                         foreach($managerDepartmentsRanges as $managerDepartmentRange) {
-                            $name = $managerDepartmentRange->department()->name()->value();
-                            $query->orWhere(function($query) use ($name) {
-                                $query->where('dept_name', $name);
+                            $id = $managerDepartmentRange->department()->id()->value();
+                            $query->orWhere(function($query) use ($id) {
+                                $query->where('dept_emp.dept_no', $id);
                             });
                         }
                     });
