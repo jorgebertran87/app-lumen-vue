@@ -1,0 +1,13 @@
+# behat.yml
+default:
+  autoload:
+    '': '%paths.base%/tests/functional'
+  suites:
+    default:
+      paths: [ '%paths.base%/tests/functional/features' ]
+  extensions:
+    Imbo\BehatApiExtension:
+      apiClient:
+        base_uri: http://app
+        timeout: 5.0
+        verify: false
