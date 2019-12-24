@@ -1,0 +1,6 @@
+{
+    "baseUrl": "http://0.0.0.0:8080/",
+    "video": false,
+    "defaultCommandTimeout": 15000,
+    "chromeWebSecurity": false
+}

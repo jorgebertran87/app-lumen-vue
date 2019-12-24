@@ -9,6 +9,7 @@
                 aria-controls="employees"
         ></b-pagination>
         <b-form-select
+                id="managers"
                 size="sm"
                 class="float-sm-left w-25 mr-4"
                 v-model="selected"
@@ -17,6 +18,7 @@
 
         </b-form-select>
         <b-form-input
+                id="date"
                 v-model="date"
                 type="date"
                 size="sm"

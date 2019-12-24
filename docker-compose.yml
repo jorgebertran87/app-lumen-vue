@@ -33,6 +33,7 @@ services:
 
   client:
     build: './client'
+    network_mode: host
     container_name: client
     hostname: client
     restart: unless-stopped
@@ -45,10 +46,25 @@ services:
 
   behat:
     image: docksal/behat
+    network_mode: host
     container_name: behat
     hostname: behat
     volumes:
       - ./src:/src
+    depends_on:
+      - app
+
+  cypress:
+    image: cypress/included:3.2.0
+    network_mode: host
+    container_name: cypress
+    hostname: cypress
+    working_dir: /e2e
+    volumes:
+      - ./src/tests/e2e:/e2e
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - client
 
 
 secrets:
@@ -59,6 +75,3 @@ secrets:
 
 volumes:
   mysql-data:
-
-networks:
-  default:
