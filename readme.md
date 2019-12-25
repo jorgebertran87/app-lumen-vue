@@ -44,42 +44,20 @@ This will create a dockerized stack for a Vue application with Lumen API, consis
 
 1. Create a new directory in which your OS user has full read/write access and clone this repository inside.
 
-2. Create two new textfiles named `db_root_password.txt` and `db_password.txt` and place your preferred database passwords inside:
-
-    ```
-    $ echo "myrootpass" > db_root_password.txt
-    $ echo "myuserpass" > db_password.txt
-    ```
-
-3. Before the whole stack is up, execute the following commands:
+2. Prepare the stack with this command (It will take about 8 minutes):
 
     
     ```
-    # Migrate db info (It usually takes a bit of time, so grab a cup of coffee)
-    docker-compose run --rm --entrypoint "/scripts/dump_data.sh" app
-    # Install node packages in client
-    docker-compose run --rm --entrypoint "npm install" client
-    # Install vendors in app
-    docker-compose run --rm --entrypoint "composer install" app
-    # Up the whole stack
-    docker-compose up -d
+    ./prepare_stack.sh
     ```
 
+3. Copy your .env file from .env.example in src folder
 
-4. Create your .env file from .env.example in src folder
-
-
-- The following values should be replaced in your `.env` file if you're willing to keep them as defaults:
-    
     ```
-    DB_HOST=mysql
-    DB_PORT=3306
-    DB_DATABASE=appdb
-    DB_USERNAME=user
-    DB_PASSWORD=myuserpass
-    ``` 
+    cp src/.env.example src/.env
+    ```
     
-5. That's it! Navigate to [http://localhost:8080](http://localhost:8080) to access the application.
+4. That's it! Navigate to [http://localhost:8080](http://localhost:8080) to access the application.
 
 **Tests**
 
@@ -90,10 +68,10 @@ docker-compose run --rm --entrypoint "/var/www/html/vendor/bin/phpunit tests" ap
 
 - Functional
 ```
-docker-compose run --rm behat
+docker-compose run behat
 ```    
 
 - e2e
 ```
-docker-compose run --rm cypress
+docker-compose run cypress
 ```    

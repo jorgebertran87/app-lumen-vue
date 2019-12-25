@@ -73,7 +73,6 @@ ADD resources/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN apt-get install -y mysql-client
 ADD ./dump_data.sh /scripts/dump_data.sh
-ADD ./db_root_password.txt /scripts/db_root_password.txt
 
 #------------- Container Config ---------------------------------------------------------------
 
