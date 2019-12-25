@@ -8,6 +8,6 @@ default:
   extensions:
     Imbo\BehatApiExtension:
       apiClient:
-        base_uri: http://app
+        base_uri: http://0.0.0.0
         timeout: 5.0
         verify: false
