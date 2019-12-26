@@ -6,7 +6,7 @@ namespace App\Domain\DepartmentRange;
 
 use DateTimeImmutable;
 
-class Date extends DateTimeImmutable
+class Date
 {
     /** @var DateTimeImmutable */
     private $value;
