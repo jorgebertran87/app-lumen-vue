@@ -1,4 +1,4 @@
-# Docline test
+# App with Lumen + Vue
 
 ### **Description**
 
@@ -12,6 +12,8 @@ This will create a dockerized stack for a Vue application with Lumen API, consis
 -  **client**, Vue application container ([vue](https://vuejs.org/) official page)
 
 -  **behat**, Functional tests for api
+
+-  **cypress**, e2e tests for client
 
 #### **Directory Structure**
 ```
