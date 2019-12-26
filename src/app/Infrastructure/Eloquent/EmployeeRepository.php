@@ -15,18 +15,41 @@ use App\Domain\Employee\LastName;
 use App\Domain\Employee\Gender;
 use App\Domain\Employee\HireDate;
 use DateTimeImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
-    public function getFromManagerDepartmentsRangesAndDate(PaginationFilters $filters, array $managerDepartmentsRanges, DateTimeImmutable $date): array
-    {
+    public function getFromManagerDepartmentsRangesAndDate(
+        PaginationFilters $filters,
+        array $managerDepartmentsRanges,
+        DateTimeImmutable $date
+    ): array {
         if ($this->areManagerDepartmentsRangesEmpty($managerDepartmentsRanges)) {
             return [];
         }
 
         $numRowsToSkip = ($filters->numPage()-1)*$filters->numRows();
-        $rows = Employee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
+        $query = $this->whereHasDepartmentsFromDateAndManagersDepartmentsRanges($managerDepartmentsRanges, $date);
+        $query->skip($numRowsToSkip)->take($filters->numRows());
+
+        return $this->convertToEmployees($query->get());
+    }
+
+    public function getCountFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): int
+    {
+        if ($this->areManagerDepartmentsRangesEmpty($managerDepartmentsRanges)) {
+            return 0;
+        }
+
+        return $this->whereHasDepartmentsFromDateAndManagersDepartmentsRanges($managerDepartmentsRanges, $date)->count();
+    }
+
+    private function whereHasDepartmentsFromDateAndManagersDepartmentsRanges(
+        array $managerDepartmentsRanges,
+        DateTimeImmutable $date
+    ): Builder {
+        return Employee::whereHas('departments', function($query) use ($managerDepartmentsRanges, $date) {
             $query->where(function($query) use ($date, $managerDepartmentsRanges) {
                 $query
                     ->where('from_date', '<=', $date)->where('to_date', '>=', $date)
@@ -40,9 +63,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                         }
                     });
             });
-        })->skip($numRowsToSkip)->take($filters->numRows())->get();
-
-        return $this->convertToEmployees($rows);
+        });
     }
 
     private function areManagerDepartmentsRangesEmpty($departmentsRanges) {
@@ -123,28 +144,5 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function getCount(): int
     {
         return Employee::count();
-    }
-
-    public function getCountFromManagerDepartmentsRangesAndDate(array $managerDepartmentsRanges, DateTimeImmutable $date): int
-    {
-        if ($this->areManagerDepartmentsRangesEmpty($managerDepartmentsRanges)) {
-            return 0;
-        }
-
-        return Employee::whereHas('departments', function($query) use ($date, $managerDepartmentsRanges) {
-            $query->where(function($query) use ($date, $managerDepartmentsRanges) {
-                $query
-                    ->where('from_date', '<=', $date)->where('to_date', '>=', $date)
-                    ->where(function($query) use($managerDepartmentsRanges) {
-                        /** @var DepartmentRange $managerDepartmentRange */
-                        foreach($managerDepartmentsRanges as $managerDepartmentRange) {
-                            $id = $managerDepartmentRange->department()->id()->value();
-                            $query->orWhere(function($query) use ($id) {
-                                $query->where('dept_emp.dept_no', $id);
-                            });
-                        }
-                    });
-            });
-        })->count();
     }
 }
