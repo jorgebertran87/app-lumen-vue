@@ -6,68 +6,17 @@
                 :currentPage.sync="currentPage"
         />
         <ManagersSelector
-            :managers="options"
-            :selected.sync="selected"
-            :onSelect="fetchItems"
+                :managers="options"
+                :selected.sync="selected"
         />
-        <b-form-input
-                id="date"
-                v-model="date"
-                type="date"
-                size="sm"
-                class="float-sm-left w-25"
-        >
-
-        </b-form-input>
-        <b-table
-                id="employees"
-                responsive
-                striped
-                bordered
+        <DatePicker
+                :date.sync="date"
+        />
+        <Employees
                 :items="items"
-                :busy.sync="isBusy"
-                :per-page="perPage"
-        >
-            <template v-slot:cell(id)="row">
-                <div @click="fetchItem(row.item.id)" style="cursor: pointer" v-b-modal="'modal-' + row.item.id">{{row.item.id}}</div>
-                <b-modal  hide-footer :id="'modal-' + row.item.id" :title="'Employee Details for ' + itemSelected.firstName + ' ' + itemSelected.lastName">
-                    <b-table
-                            id="departments"
-                            responsive
-                            striped
-                            bordered
-                            :items="itemSelected.departments"
-                    >
-                    </b-table>
-                    <b-table
-                            id="salaries"
-                            responsive
-                            striped
-                            bordered
-                            :items="itemSelected.salaries"
-                    >
-                    </b-table>
-                    <b-table
-                            id="titles"
-                            responsive
-                            striped
-                            bordered
-                            :items="itemSelected.titles"
-                    >
-                    </b-table>
-                </b-modal>
-            </template>
-
-            <template v-slot:row-details="row">
-
-            </template>
-
-        </b-table>
-        <div>
-
-
-
-        </div>
+                :onItemSelected="fetchItem"
+                :itemSelected="itemSelected"
+        />
     </div>
 
 </template>
@@ -76,24 +25,26 @@
     import axios from "axios";
     import Pagination from './Pagination.vue';
     import ManagersSelector from './ManagersSelector.vue';
+    import DatePicker from './DatePicker.vue';
+    import Employees from './Employees.vue';
 
     export default {
         name: 'List',
         components: {
             Pagination,
-            ManagersSelector
+            ManagersSelector,
+            DatePicker,
+            Employees
         },
         data () {
             return {
-                isBusy: false,
                 rows: 0,
                 perPage: 20,
                 date: '2019-01-01',
                 options: [ ],
-                selected: '',
                 currentPage: 1,
+                selected: '',
                 items: [],
-                numRequests: 0,
                 itemSelected: {}
             }
         },
