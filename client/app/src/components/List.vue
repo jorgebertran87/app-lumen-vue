@@ -3,17 +3,13 @@
         <Pagination
                 :rows="rows"
                 :perPage="perPage"
-                :onChangePage="fetchItems"
+                :currentPage.sync="currentPage"
         />
-        <b-form-select
-                id="managers"
-                size="sm"
-                class="float-sm-left w-25 mr-4"
-                v-model="selected"
-                :options="options"
-        >
-
-        </b-form-select>
+        <ManagersSelector
+            :managers="options"
+            :selected.sync="selected"
+            :onSelect="fetchItems"
+        />
         <b-form-input
                 id="date"
                 v-model="date"
@@ -78,12 +74,14 @@
 
 <script>
     import axios from "axios";
-    import Pagination from './Pagination.vue'
+    import Pagination from './Pagination.vue';
+    import ManagersSelector from './ManagersSelector.vue';
 
     export default {
         name: 'List',
         components: {
-            Pagination
+            Pagination,
+            ManagersSelector
         },
         data () {
             return {
@@ -93,6 +91,7 @@
                 date: '2019-01-01',
                 options: [ ],
                 selected: '',
+                currentPage: 1,
                 items: [],
                 numRequests: 0,
                 itemSelected: {}
@@ -145,15 +144,17 @@
             }
         },
         mounted() {
-            this.fetchItems();
+            this.fetchItems(1);
             this.fetchManagers();
         },
         watch: {
-            selected() {
-                this.fetchItems(1);
-
+            currentPage(newParam) {
+                this.fetchItems(newParam);
             },
             date() {
+                this.fetchItems(1);
+            },
+            selected() {
                 this.fetchItems(1);
             }
         }

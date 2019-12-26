@@ -19,12 +19,11 @@
         },
         props: {
             rows: { type: Number },
-            perPage: {type: Number },
-            onChangePage: { type: Function }
+            perPage: {type: Number }
         },
         watch: {
-            currentPage() {
-                this.onChangePage(this.currentPage);
+            currentPage(newValue) {
+                this.$emit('update:currentPage', newValue);
             }
         }
     }
