@@ -13,8 +13,6 @@ services:
     restart: unless-stopped
     ports:
       - 127.0.0.1:3306:3306
-    volumes:
-      - mysql-data:/var/lib/mysql
 
   app:
     build: .
@@ -33,11 +31,12 @@ services:
     network_mode: host
     container_name: client
     hostname: client
-    restart: unless-stopped
     volumes:
       - ./client/app:/app
     ports:
       - "8080:8080"
+    depends_on: 
+      - app
 
   behat:
     image: docksal/behat
@@ -46,6 +45,8 @@ services:
     hostname: behat
     volumes:
       - ./src:/src
+    depends_on: 
+      - app
 
   cypress:
     image: cypress/included:3.2.0
@@ -56,6 +57,6 @@ services:
     volumes:
       - ./src/tests/e2e:/e2e
       - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on: 
+      - client
 
-volumes:
-  mysql-data:

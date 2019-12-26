@@ -48,7 +48,7 @@ This will create a dockerized stack for a Vue application with Lumen API, consis
 
     
     ```
-    ./prepare_stack.sh
+    ./scripts/prepare_stack
     ```
 
 3. Copy your .env file from .env.example in src folder
@@ -68,10 +68,10 @@ docker-compose run --rm --entrypoint "/var/www/html/vendor/bin/phpunit tests" ap
 
 - Functional
 ```
-docker-compose run behat
+./scripts/run_container behat
 ```    
 
 - e2e
 ```
-docker-compose run cypress
+./scripts/run_container cypress
 ```    
