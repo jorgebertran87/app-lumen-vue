@@ -1,13 +1,10 @@
 <template>
     <div style="width: 100%">
-        <b-pagination
-                v-model="currentPage"
-                :total-rows="rows"
-                :per-page="perPage"
-                class="float-sm-left mr-4 ml-4"
-                size="sm"
-                aria-controls="employees"
-        ></b-pagination>
+        <Pagination
+                :rows="rows"
+                :perPage="perPage"
+                :onChangePage="fetchItems"
+        />
         <b-form-select
                 id="managers"
                 size="sm"
@@ -37,7 +34,7 @@
         >
             <template v-slot:cell(id)="row">
                 <div @click="fetchItem(row.item.id)" style="cursor: pointer" v-b-modal="'modal-' + row.item.id">{{row.item.id}}</div>
-                <b-modal  hide-footer="true" :id="'modal-' + row.item.id" :title="'Employee Details for ' + itemSelected.firstName + ' ' + itemSelected.lastName">
+                <b-modal  hide-footer :id="'modal-' + row.item.id" :title="'Employee Details for ' + itemSelected.firstName + ' ' + itemSelected.lastName">
                     <b-table
                             id="departments"
                             responsive
@@ -81,15 +78,18 @@
 
 <script>
     import axios from "axios";
+    import Pagination from './Pagination.vue'
 
     export default {
         name: 'List',
+        components: {
+            Pagination
+        },
         data () {
             return {
                 isBusy: false,
                 rows: 0,
                 perPage: 20,
-                currentPage: 1,
                 date: '2019-01-01',
                 options: [ ],
                 selected: '',
@@ -114,8 +114,8 @@
                     self.itemSelected = item;
                 });
             },
-            fetchItems() {
-                let url = 'http://0.0.0.0/employees?page=' + this.currentPage + '&rows=' + this.perPage;
+            fetchItems(currentPage) {
+                let url = 'http://0.0.0.0/employees?page=' + currentPage + '&rows=' + this.perPage;
 
                 if (this.selected && this.date) {
                     url += '&mid=' + this.selected + '&date=' + this.date;
@@ -149,16 +149,11 @@
             this.fetchManagers();
         },
         watch: {
-            currentPage() {
-                this.fetchItems();
-            },
             selected() {
-                this.currentPage = 1;
                 this.fetchItems(1);
 
             },
             date() {
-                this.currentPage = 1;
                 this.fetchItems(1);
             }
         }
