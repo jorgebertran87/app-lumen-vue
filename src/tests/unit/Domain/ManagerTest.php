@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UnitTests\Domain;
 
 use PHPUnit\Framework\TestCase;
-use App\Domain\DepartmentRange;
-use App\Domain\Manager;
+use App\Search\Domain\DepartmentRange;
+use App\Search\Domain\Manager;
 
 class ManagerTest extends TestCase
 {

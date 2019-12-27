@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UnitTests\Domain\Employee;
 
 use PHPUnit\Framework\TestCase;
-use App\Domain\Employee\Gender;
-use App\Domain\Employee\InvalidGenderException;
+use App\Search\Domain\Employee\Gender;
+use App\Search\Domain\Employee\InvalidGenderException;
 
 class GenderTest extends TestCase
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UnitTests\Domain;
 
-use App\Domain\Department;
-use App\Domain\Department\Name;
-use App\Domain\Department\Id;
+use App\Search\Domain\Department;
+use App\Search\Domain\Department\Name;
+use App\Search\Domain\Department\Id;
 
 class FakeDepartment extends Department
 {

@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace UnitTests\Domain;
 
-use App\Domain\Department;
-use App\Domain\DepartmentRange;
-use App\Domain\InvalidDepartmentRangeException;
+use App\Search\Domain\Department;
+use App\Search\Domain\DepartmentRange;
+use App\Search\Domain\InvalidDepartmentRangeException;
 use PHPUnit\Framework\TestCase;
 
 class DepartmentRangeTest extends TestCase

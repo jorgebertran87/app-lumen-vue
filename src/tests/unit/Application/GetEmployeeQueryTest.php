@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\GetEmployeeQuery;
-use App\Application\QueryException;
-use App\Domain\Employee;
+use App\Search\Application\GetEmployeeQuery;
+use App\Search\Application\QueryException;
+use App\Search\Domain\Employee;
 use PHPUnit\Framework\TestCase;
 use UnitTests\Domain\FakeEmployee;
 

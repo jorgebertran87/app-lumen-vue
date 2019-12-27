@@ -6,8 +6,8 @@ namespace UnitTests\Domain\Employee;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use App\Domain\Employee\InvalidSalaryException;
-use App\Domain\Employee\Salary;
+use App\Search\Domain\Employee\InvalidSalaryException;
+use App\Search\Domain\Employee\Salary;
 
 class SalaryTest extends TestCase
 {

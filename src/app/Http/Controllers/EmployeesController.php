@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\EmployeeSerializer;
-use App\Application\GetEmployeeQuery;
-use App\Application\GetEmployeesQuery;
-use App\Application\GetTotalEmployeesQuery;
-use App\Application\QueryBus;
+use App\Search\Application\EmployeeSerializer;
+use App\Search\Application\GetEmployeeQuery;
+use App\Search\Application\GetEmployeesQuery;
+use App\Search\Application\GetTotalEmployeesQuery;
+use App\Search\Application\QueryBus;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller

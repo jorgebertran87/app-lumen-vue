@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\EmployeeRepository;
-use App\Application\ManagerRepository;
-use App\Application\QueryBus;
+use App\Search\Application\EmployeeRepository;
+use App\Search\Application\ManagerRepository;
+use App\Search\Application\QueryBus;
 
 class QueryBusStub extends QueryBus
 {

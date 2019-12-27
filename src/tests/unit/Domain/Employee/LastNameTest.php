@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UnitTests\Domain\Employee;
 
 use PHPUnit\Framework\TestCase;
-use App\Domain\Employee\InvalidLastNameException;
-use App\Domain\Employee\LastName;
+use App\Search\Domain\Employee\InvalidLastNameException;
+use App\Search\Domain\Employee\LastName;
 
 class LastNameTest extends TestCase
 {

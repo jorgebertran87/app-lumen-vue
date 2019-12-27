@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\ManagerSerializer;
+use App\Search\Application\ManagerSerializer;
 use PHPUnit\Framework\TestCase;
 use UnitTests\Domain\FakeManager;
 

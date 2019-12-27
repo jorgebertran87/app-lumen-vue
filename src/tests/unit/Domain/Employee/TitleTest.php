@@ -6,8 +6,8 @@ namespace UnitTests\Domain\Employee;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use App\Domain\Employee\InvalidTitleException;
-use App\Domain\Employee\Title;
+use App\Search\Domain\Employee\InvalidTitleException;
+use App\Search\Domain\Employee\Title;
 
 class TitleTest extends TestCase
 {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\EmployeeRepository;
-use App\Application\PaginationFilters;
-use App\Domain\DepartmentRange;
-use App\Domain\Employee;
-use App\Domain\Employee\Id;
-use App\Domain\Manager;
+use App\Search\Application\EmployeeRepository;
+use App\Search\Application\PaginationFilters;
+use App\Search\Domain\DepartmentRange;
+use App\Search\Domain\Employee;
+use App\Search\Domain\Employee\Id;
+use App\Search\Domain\Manager;
 use DateTimeImmutable;
 use UnitTests\Domain\FakeEmployee;
 

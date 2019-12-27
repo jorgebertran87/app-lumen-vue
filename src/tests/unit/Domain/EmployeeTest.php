@@ -4,15 +4,15 @@ declare(strict_types = 1);
 
 namespace UnitTests\Domain;
 
-use App\Domain\DepartmentRange;
-use App\Domain\InvalidDepartmentRangeException;
+use App\Search\Domain\DepartmentRange;
+use App\Search\Domain\InvalidDepartmentRangeException;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use App\Domain\Employee;
-use App\Domain\Employee\Title;
-use App\Domain\Employee\Salary;
-use App\Domain\Employee\InvalidTitleException;
-use App\Domain\Employee\InvalidSalaryException;
+use App\Search\Domain\Employee;
+use App\Search\Domain\Employee\Title;
+use App\Search\Domain\Employee\Salary;
+use App\Search\Domain\Employee\InvalidTitleException;
+use App\Search\Domain\Employee\InvalidSalaryException;
 
 class EmployeeTest extends TestCase
 {

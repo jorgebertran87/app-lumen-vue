@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\GetTotalEmployeesQuery;
-use App\Domain\DepartmentRange;
+use App\Search\Application\GetTotalEmployeesQuery;
+use App\Search\Domain\DepartmentRange;
 use PHPUnit\Framework\TestCase;
 use UnitTests\Domain\FakeEmployee;
 use UnitTests\Domain\FakeManager;

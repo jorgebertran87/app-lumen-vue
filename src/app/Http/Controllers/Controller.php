@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\QueryBus;
+use App\Search\Application\QueryBus;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController

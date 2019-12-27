@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\EmployeeSerializer;
+use App\Search\Application\EmployeeSerializer;
 use PHPUnit\Framework\TestCase;
 use UnitTests\Domain\FakeEmployee;
 

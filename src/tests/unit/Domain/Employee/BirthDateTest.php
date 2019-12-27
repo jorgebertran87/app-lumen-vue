@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace UnitTests\Domain\Employee;
 
 use PHPUnit\Framework\TestCase;
-use App\Domain\Employee\BirthDate;
-use App\Domain\Employee\InvalidBirthDateException;
+use App\Search\Domain\Employee\BirthDate;
+use App\Search\Domain\Employee\InvalidBirthDateException;
 
 class BirthDateTest extends TestCase
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\ManagerRepository;
-use App\Domain\Employee\Id;
-use App\Domain\Manager;
+use App\Search\Application\ManagerRepository;
+use App\Search\Domain\Employee\Id;
+use App\Search\Domain\Manager;
 use DateTimeImmutable;
 
 class ManagerRepositoryStub implements ManagerRepository

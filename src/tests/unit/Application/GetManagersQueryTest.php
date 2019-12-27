@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace UnitTests\Application;
 
-use App\Application\GetManagersQuery;
-use App\Domain\Manager;
+use App\Search\Application\GetManagersQuery;
+use App\Search\Domain\Manager;
 use PHPUnit\Framework\TestCase;
 use UnitTests\Domain\FakeManager;
 

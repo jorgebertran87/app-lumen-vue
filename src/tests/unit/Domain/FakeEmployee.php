@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace UnitTests\Domain;
 
-use App\Domain\Employee\Salary;
-use App\Domain\Employee\Title;
+use App\Search\Domain\Employee\Salary;
+use App\Search\Domain\Employee\Title;
 use DateTimeImmutable;
-use App\Domain\DepartmentRange;
-use App\Domain\Employee;
-use App\Domain\Employee\BirthDate;
-use App\Domain\Employee\FirstName;
-use App\Domain\Employee\Gender;
-use App\Domain\Employee\HireDate;
-use App\Domain\Employee\Id;
-use App\Domain\Employee\LastName;
+use App\Search\Domain\DepartmentRange;
+use App\Search\Domain\Employee;
+use App\Search\Domain\Employee\BirthDate;
+use App\Search\Domain\Employee\FirstName;
+use App\Search\Domain\Employee\Gender;
+use App\Search\Domain\Employee\HireDate;
+use App\Search\Domain\Employee\Id;
+use App\Search\Domain\Employee\LastName;
 
 class FakeEmployee extends Employee
 {

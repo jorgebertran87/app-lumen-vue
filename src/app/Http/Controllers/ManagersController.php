@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\GetManagersQuery;
-use App\Application\ManagerSerializer;
-use App\Application\QueryBus;
+use App\Search\Application\GetManagersQuery;
+use App\Search\Application\ManagerSerializer;
+use App\Search\Application\QueryBus;
 
 class ManagersController extends Controller
 {

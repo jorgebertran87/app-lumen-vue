@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace UnitTests\Domain\Department;
 
-use App\Domain\Department\Id;
-use App\Domain\Department\InvalidIdException;
+use App\Search\Domain\Department\Id;
+use App\Search\Domain\Department\InvalidIdException;
 use PHPUnit\Framework\TestCase;
 
 class IdTest extends TestCase
